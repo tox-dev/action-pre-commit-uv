@@ -8,13 +8,10 @@ inputs:
 runs:
   using: composite
   steps:
-  - run: python -m pip install pre-commit
-    shell: bash
-  - run: python -m pip freeze --local
-    shell: bash
+  - uses: hynek/setup-cached-uv@v2
   - uses: actions/cache@v4
     with:
       path: ~/.cache/pre-commit
       key: pre-commit-3|${{ env.pythonLocation }}|${{ hashFiles('.pre-commit-config.yaml') }}
-  - run: pre-commit run --show-diff-on-failure --color=always ${{ inputs.extra_args }}
+  - run: uv run --with pre-commit-uv pre-commit run --show-diff-on-failure --color=always ${{ inputs.extra_args }}
     shell: bash
