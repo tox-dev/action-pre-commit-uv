@@ -10,9 +10,6 @@ runs:
   steps:
   - name: Install the latest version of uv
     uses: astral-sh/setup-uv@v3
-    with:
-      enable-cache: true
-      cache-dependency-glob: "action.yml"
   - uses: actions/cache@v4
     with:
       path: ~/.cache/pre-commit
