@@ -13,6 +13,8 @@ runs:
     with:
       enable-cache: true
       cache-dependency-glob: '.pre-commit-config.yaml'
+  - run: uv run --isolated --no-sync true && echo "pythonLocation=$(uv python find)" >>$GITHUB_ENV
+    shell: bash
   - uses: actions/cache@v4
     with:
       path: ~/.cache/pre-commit
