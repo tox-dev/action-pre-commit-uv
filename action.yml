@@ -5,6 +5,10 @@ inputs:
     description: options to pass to pre-commit run
     required: false
     default: '--all-files'
+  uv_version:
+    description: use a specific version of uv (default latest)
+    required: false
+    default: latest
 runs:
   using: composite
   steps:
@@ -13,6 +17,7 @@ runs:
     with:
       enable-cache: true
       cache-dependency-glob: '.pre-commit-config.yaml'
+      uv-version: ${{ inputs.uv_version }}
   - run: uv run --isolated --no-sync true && echo "pythonLocation=$(uv python find)" >>$GITHUB_ENV
     shell: bash
   - uses: actions/cache@v4

@@ -39,7 +39,7 @@ jobs:
 This does a few things:
 
 - clones the code
-- installs uv
+- installs `uv`
 - sets up the `pre-commit` cache
 
 ### using this action with custom invocations
@@ -54,6 +54,29 @@ the files (use the template above except for the `pre-commit` action):
     - uses: tox-dev/action-pre-commit-uv@v1
       with:
         extra_args: flake8 --all-files
+```
+
+### using a specific version of `uv`
+
+By default, the latest version of `uv` is installed.
+If this is not desired, a specific version can be requested using the `uv_version` input:
+
+```yaml
+    - uses: tox-dev/action-pre-commit-uv@v1
+      with:
+        uv_version: "0.8.5"
+```
+
+```yaml
+    - uses: tox-dev/action-pre-commit-uv@v1
+      with:
+        uv_version: "0.8.x"
+```
+
+```yaml
+    - uses: tox-dev/action-pre-commit-uv@v1
+      with:
+        uv_version: ">=0.8,<9"
 ```
 
 ### using this action in private repositories
