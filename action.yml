@@ -1,4 +1,4 @@
-name: pre-commit
+name: pre-commit-uv
 description: run pre-commit
 inputs:
   extra_args:

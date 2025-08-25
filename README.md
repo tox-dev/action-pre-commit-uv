@@ -6,11 +6,11 @@ generally you want to use [pre-commit.ci] which is faster and has more features.
 
 ___
 
-[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/pre-commit/action/main.svg)](https://results.pre-commit.ci/latest/github/pre-commit/action/main)
-[![Build Status](https://github.com/pre-commit/action/actions/workflows/main.yml/badge.svg)](https://github.com/pre-commit/action/actions)
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/tox-dev/action-pre-commit-uv/main.svg)](https://results.pre-commit.ci/latest/github/tox-dev/action-pre-commit-uv/main)
+[![Build Status](https://github.com/tox-dev/action-pre-commit-uv/actions/workflows/main.yml/badge.svg)](https://github.com/tox-dev/action-pre-commit-uv/actions)
 
-pre-commit/action
-=================
+tox-dev/action-pre-commit-uv
+============================
 
 A GitHub action to run [pre-commit](https://pre-commit.com)
 using [pre-commit-uv](https://github.com/tox-dev/pre-commit-uv).
