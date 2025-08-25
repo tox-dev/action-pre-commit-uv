@@ -1,11 +1,3 @@
-this action is in maintenance-only mode and will not be accepting new features.
-
-generally you want to use [pre-commit.ci] which is faster and has more features.
-
-[pre-commit.ci]: https://pre-commit.ci
-
-___
-
 [![pre-commit.ci status](https://results.pre-commit.ci/badge/github/tox-dev/action-pre-commit-uv/main.svg)](https://results.pre-commit.ci/latest/github/tox-dev/action-pre-commit-uv/main)
 [![Build Status](https://github.com/tox-dev/action-pre-commit-uv/actions/workflows/main.yml/badge.svg)](https://github.com/tox-dev/action-pre-commit-uv/actions)
 
