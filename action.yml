@@ -8,7 +8,12 @@ inputs:
 runs:
   using: composite
   steps:
+  - name: Check if uv is already installed
+    id: check-uv
+    run: command -v uv && echo "installed=true" >> "$GITHUB_OUTPUT" || echo "installed=false" >> "$GITHUB_OUTPUT"
+    shell: bash
   - name: Install the latest version of uv
+    if: steps.check-uv.outputs.installed != 'true'
     uses: astral-sh/setup-uv@v7
     with:
       enable-cache: true
