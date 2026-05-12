@@ -1,3 +1,5 @@
+name: CI
+
 on:
   pull_request:
   push:
@@ -7,7 +9,7 @@ permissions:
   contents: read
 
 jobs:
-  main-uvx:
+  self-test-uvx:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
@@ -15,7 +17,7 @@ jobs:
         persist-credentials: false
     - name: self test action (uvx path)
       uses: ./
-  main-uv-run:
+  self-test-uv-run:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
@@ -25,7 +27,7 @@ jobs:
       shell: bash
     - name: self test action (uv run path)
       uses: ./
-  main-external-uv:
+  self-test-external-uv:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
