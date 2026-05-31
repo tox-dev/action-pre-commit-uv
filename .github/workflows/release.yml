@@ -34,7 +34,7 @@ jobs:
         minor="v${BASH_REMATCH[1]}.${BASH_REMATCH[2]}"
         sha="$(gh api "repos/${REPO}/commits/${TAG}" --jq '.sha')"
         for ref in "${major}" "${minor}"; do
-          if gh api "repos/${REPO}/git/refs/tags/${ref}" >/dev/null 2>&1; then
+          if gh api "repos/${REPO}/git/ref/tags/${ref}" >/dev/null 2>&1; then
             gh api -X PATCH "repos/${REPO}/git/refs/tags/${ref}" -f "sha=${sha}" -F force=true >/dev/null
           else
             gh api -X POST "repos/${REPO}/git/refs" -f "ref=refs/tags/${ref}" -f "sha=${sha}" >/dev/null
