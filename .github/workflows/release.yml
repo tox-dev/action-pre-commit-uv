@@ -1,0 +1,43 @@
+name: Update floating tags
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Full version tag to point the floating tags at (e.g. v1.0.4)
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  update-floating-tags:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'workflow_dispatch' || !github.event.release.prerelease }}
+    permissions:
+      contents: write
+    steps:
+    - name: Move major and minor tags to the released version
+      env:
+        GH_TOKEN: ${{ github.token }}
+        REPO: ${{ github.repository }}
+        TAG: ${{ github.event.release.tag_name || inputs.tag }}
+      run: |
+        set -euo pipefail
+        if [[ ! "${TAG}" =~ ^v([0-9]+)\.([0-9]+)\.([0-9]+)$ ]]; then
+          echo "::error::Unexpected tag format: ${TAG} (expected vMAJOR.MINOR.PATCH)" >&2
+          exit 1
+        fi
+        major="v${BASH_REMATCH[1]}"
+        minor="v${BASH_REMATCH[1]}.${BASH_REMATCH[2]}"
+        sha="$(gh api "repos/${REPO}/commits/${TAG}" --jq '.sha')"
+        for ref in "${major}" "${minor}"; do
+          if gh api "repos/${REPO}/git/refs/tags/${ref}" >/dev/null 2>&1; then
+            gh api -X PATCH "repos/${REPO}/git/refs/tags/${ref}" -f "sha=${sha}" -F force=true >/dev/null
+          else
+            gh api -X POST "repos/${REPO}/git/refs" -f "ref=refs/tags/${ref}" -f "sha=${sha}" >/dev/null
+          fi
+          echo "Pointed ${ref} -> ${TAG} (${sha})"
+        done
