@@ -16,7 +16,7 @@ jobs:
       with:
         persist-credentials: false
     - name: self test action (uvx path)
-      uses: ./
+      uses: $/
   self-test-uv-run:
     runs-on: ubuntu-26.04
     steps:
@@ -26,7 +26,7 @@ jobs:
     - run: printf '[project]\nname = "test"\nversion = "0.0.0"\nrequires-python = ">=3.13"\n' > pyproject.toml
       shell: bash
     - name: self test action (uv run path)
-      uses: ./
+      uses: $/
   self-test-external-uv:
     runs-on: ubuntu-26.04
     steps:
@@ -37,6 +37,6 @@ jobs:
       with:
         enable-cache: false
     - name: self test action (external uv)
-      uses: ./
+      uses: $/
       with:
         uv-install: 'false'
