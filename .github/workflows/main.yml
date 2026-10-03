@@ -10,31 +10,33 @@ permissions:
 
 jobs:
   self-test-uvx:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
-    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v6
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       with:
         persist-credentials: false
     - name: self test action (uvx path)
-      uses: ./
+      uses: $/
   self-test-uv-run:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
-    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v6
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       with:
         persist-credentials: false
     - run: printf '[project]\nname = "test"\nversion = "0.0.0"\nrequires-python = ">=3.13"\n' > pyproject.toml
       shell: bash
     - name: self test action (uv run path)
-      uses: ./
+      uses: $/
   self-test-external-uv:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
-    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v6
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       with:
         persist-credentials: false
     - uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
+      with:
+        enable-cache: false
     - name: self test action (external uv)
-      uses: ./
+      uses: $/
       with:
         uv-install: 'false'
