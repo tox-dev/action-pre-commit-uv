@@ -23,7 +23,7 @@ runs:
     with:
       enable-cache: true
       cache-dependency-glob: '.pre-commit-config.yaml'
-  - run: uv run --isolated --no-sync true && echo "pythonLocation=$(uv python find)" >>$GITHUB_ENV
+  - run: uv run --python 3.15 --isolated --no-sync true && echo "pythonLocation=$(uv python find 3.15)" >>$GITHUB_ENV
     shell: bash
   - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
     with:
@@ -31,9 +31,9 @@ runs:
       key: pre-commit-3|${{ env.pythonLocation }}|${{ hashFiles('.pre-commit-config.yaml') }}
   - run: |
       if [ -f pyproject.toml ]; then
-        uv run --no-sync --with pre-commit-uv pre-commit run --show-diff-on-failure --color=always ${INPUTS_EXTRA_ARGS}
+        uv run --python 3.15 --no-sync --with pre-commit-uv pre-commit run --show-diff-on-failure --color=always ${INPUTS_EXTRA_ARGS}
       else
-        uvx --with pre-commit-uv pre-commit run --show-diff-on-failure --color=always ${INPUTS_EXTRA_ARGS}
+        uvx --python 3.15 --with pre-commit-uv pre-commit run --show-diff-on-failure --color=always ${INPUTS_EXTRA_ARGS}
       fi
     shell: bash
     env:
