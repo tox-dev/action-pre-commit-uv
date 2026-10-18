@@ -48,9 +48,17 @@ jobs:
       env:
         GH_TOKEN: ${{ github.token }}
         TAG: ${{ github.ref_name }}
-      run: gh release create "$TAG" --verify-tag --title "$TAG" --notes-file "$RUNNER_TEMP/release-notes.md"
+      run: |
+        set -euo pipefail
+        previous=$(git tag --list | grep -E '^v?[0-9]+\.[0-9]+\.[0-9]+$' | awk '{ version = $0; sub(/^v/, "", version); print version, $0 }' | sort -V -k1,1 | awk -v tag="$TAG" '$2 == tag { print previous; exit } { previous = $2 }')
+        if [[ -n "$previous" ]]; then
+          printf '\n**Full Changelog**: https://github.com/%s/compare/%s...%s\n' "$GITHUB_REPOSITORY" "$previous" "$TAG" >> "$RUNNER_TEMP/release-notes.md"
+        else
+          printf '\n**Full Changelog**: https://github.com/%s/commits/%s\n' "$GITHUB_REPOSITORY" "$TAG" >> "$RUNNER_TEMP/release-notes.md"
+        fi
+        gh release create "$TAG" --verify-tag --title "$TAG" --notes-file "$RUNNER_TEMP/release-notes.md"
     - id: token
-      uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+      uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
       with:
         client-id: ${{ vars.RELEASE_APP_CLIENT_ID }}
         private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
