@@ -6,6 +6,8 @@
 A GitHub action to run [pre-commit](https://pre-commit.com) using
 [pre-commit-uv](https://github.com/tox-dev/pre-commit-uv).
 
+See the [changelog](CHANGELOG.md) for released changes.
+
 ### using this action
 
 To use this action, make a file `.github/workflows/pre-commit.yml`. Here's a template to get started:
