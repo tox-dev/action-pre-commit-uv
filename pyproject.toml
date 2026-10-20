@@ -1,0 +1,11 @@
+[dependency-groups]
+release = [
+  "prek>=0.5",
+  "release-creator @ git+https://github.com/tox-dev/release-creator@6377ed5b470b66fca2bf482ca1a73d95e611f517",
+]
+
+[tool.uv]
+package = false
+
+[tool.uv.dependency-groups]
+release = { requires-python = ">=3.15" }
