@@ -33,7 +33,7 @@ jobs:
           uv venv --python 3.15 "$RUNNER_TEMP/release-tools"
           uv pip sync --preview-features pylock --python "$RUNNER_TEMP/release-tools/bin/python" --group release pylock.toml
           echo "$RUNNER_TEMP/release-tools/bin" >>"$GITHUB_PATH"
-      - uses: tox-dev/github-workflows/render-release-notes@b33daf846376ed0149e112da22960f30159053cc
+      - uses: tox-dev/github-workflows/render-release-notes@144f8e68b7d4c7c44e32258b1305e4402bc4e392
         with:
           tag: ${{ github.event.release.tag_name || inputs.tag || github.ref_name }}
           changelog: CHANGELOG.md

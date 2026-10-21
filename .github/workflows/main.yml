@@ -59,7 +59,7 @@ jobs:
           uv venv --python 3.15 "$RUNNER_TEMP/release-tools"
           uv pip sync --preview-features pylock --python "$RUNNER_TEMP/release-tools/bin/python" --group release pylock.toml
           echo "$RUNNER_TEMP/release-tools/bin" >>"$GITHUB_PATH"
-      - uses: tox-dev/github-workflows/validate-news@b33daf846376ed0149e112da22960f30159053cc
+      - uses: tox-dev/github-workflows/validate-news@144f8e68b7d4c7c44e32258b1305e4402bc4e392
   release-dry-run:
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-26.04
@@ -92,7 +92,7 @@ jobs:
           git push origin HEAD:main
           echo "sha=$(git rev-parse HEAD)" >>"$GITHUB_OUTPUT"
       - id: prepare
-        uses: tox-dev/github-workflows/prepare-towncrier@b33daf846376ed0149e112da22960f30159053cc
+        uses: tox-dev/github-workflows/prepare-towncrier@144f8e68b7d4c7c44e32258b1305e4402bc4e392
         with:
           tag-prefix: v
           changelog: CHANGELOG.md
@@ -102,21 +102,21 @@ jobs:
           patch: ${{ runner.temp }}/release.patch
       - name: Restore candidate source
         run: git reset --hard HEAD
-      - uses: tox-dev/github-workflows/validate-release-patch@b33daf846376ed0149e112da22960f30159053cc
+      - uses: tox-dev/github-workflows/validate-release-patch@144f8e68b7d4c7c44e32258b1305e4402bc4e392
         with:
           version: ${{ steps.prepare.outputs.version }}
           patch: ${{ runner.temp }}/release.patch
           changelog: CHANGELOG.md
           fragments: changelog.d
           expected-sha: ${{ steps.fixture.outputs.sha }}
-      - uses: tox-dev/github-workflows/commit-and-tag@b33daf846376ed0149e112da22960f30159053cc
+      - uses: tox-dev/github-workflows/commit-and-tag@144f8e68b7d4c7c44e32258b1305e4402bc4e392
         with:
           version: ${{ steps.prepare.outputs.version }}
           token: ${{ github.token }}
           app-slug: github-actions
           message: Prepare ${{ steps.prepare.outputs.version }}
           annotated: "true"
-      - uses: tox-dev/github-workflows/render-release-notes@b33daf846376ed0149e112da22960f30159053cc
+      - uses: tox-dev/github-workflows/render-release-notes@144f8e68b7d4c7c44e32258b1305e4402bc4e392
         with:
           tag: ${{ steps.prepare.outputs.version }}
           changelog: CHANGELOG.md

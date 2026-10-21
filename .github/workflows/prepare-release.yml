@@ -40,7 +40,7 @@ jobs:
           uv pip sync --preview-features pylock --python "$RUNNER_TEMP/release-tools/bin/python" --group release pylock.toml
           echo "$RUNNER_TEMP/release-tools/bin" >>"$GITHUB_PATH"
       - id: prepare
-        uses: tox-dev/github-workflows/prepare-towncrier@b33daf846376ed0149e112da22960f30159053cc
+        uses: tox-dev/github-workflows/prepare-towncrier@144f8e68b7d4c7c44e32258b1305e4402bc4e392
         with:
           bump: ${{ inputs.bump }}
           tag-prefix: v
@@ -77,7 +77,7 @@ jobs:
           uv venv --python 3.15 "$RUNNER_TEMP/release-tools"
           uv pip sync --preview-features pylock --python "$RUNNER_TEMP/release-tools/bin/python" --group release pylock.toml
           echo "$RUNNER_TEMP/release-tools/bin" >>"$GITHUB_PATH"
-      - uses: tox-dev/github-workflows/validate-release-patch@b33daf846376ed0149e112da22960f30159053cc
+      - uses: tox-dev/github-workflows/validate-release-patch@144f8e68b7d4c7c44e32258b1305e4402bc4e392
         with:
           version: ${{ needs.assemble.outputs.version }}
           patch: ${{ runner.temp }}/release-patch/release.patch
@@ -91,7 +91,7 @@ jobs:
           owner: ${{ github.repository_owner }}
           repositories: ${{ github.event.repository.name }}
           permission-contents: write
-      - uses: tox-dev/github-workflows/commit-and-tag@b33daf846376ed0149e112da22960f30159053cc
+      - uses: tox-dev/github-workflows/commit-and-tag@144f8e68b7d4c7c44e32258b1305e4402bc4e392
         with:
           version: ${{ needs.assemble.outputs.version }}
           token: ${{ steps.token.outputs.token }}
