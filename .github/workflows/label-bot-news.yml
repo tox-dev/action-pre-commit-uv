@@ -1,0 +1,13 @@
+name: Label bot news
+on:
+  pull_request_target: # zizmor: ignore[dangerous-triggers] Only a pinned action reads PR metadata; no PR code is checked out or run.
+    types: [opened, reopened, synchronize, labeled, unlabeled]
+permissions:
+  contents: read
+  issues: write
+  pull-requests: read
+jobs:
+  label:
+    runs-on: ubuntu-26.04
+    steps:
+      - uses: tox-dev/github-workflows/label-bot-news@b33daf846376ed0149e112da22960f30159053cc

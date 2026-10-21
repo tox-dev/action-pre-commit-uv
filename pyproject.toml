@@ -1,7 +1,8 @@
 [dependency-groups]
 release = [
   "prek>=0.5",
-  "release-creator @ git+https://github.com/tox-dev/release-creator@6377ed5b470b66fca2bf482ca1a73d95e611f517",
+  "release-creator @ git+https://github.com/tox-dev/release-creator@e487d20ce35e8dc159332e8d6d268923a83f5769",
+  "towncrier>=26.9",
 ]
 
 [tool.uv]
@@ -9,3 +10,22 @@ package = false
 
 [tool.uv.dependency-groups]
 release = { requires-python = ">=3.15" }
+
+[tool.towncrier]
+name = "action-pre-commit-uv"
+directory = "changelog.d"
+filename = "CHANGELOG.md"
+template = "release_creator.fragments:template.jinja2"
+title_format = false
+type = [
+  { directory = "feature", name = "Added", showcontent = true },
+  { directory = "change", name = "Changes", showcontent = true },
+  { directory = "bugfix", name = "Fixed", showcontent = true },
+  { directory = "doc", name = "Documentation", showcontent = true },
+  { directory = "breaking", name = "Breaking changes", showcontent = true },
+  { directory = "security", name = "Security", showcontent = true },
+  { directory = "performance", name = "Performance", showcontent = true },
+  { directory = "deprecation", name = "Deprecated", showcontent = true },
+  { directory = "removal", name = "Removed", showcontent = true },
+  { directory = "packaging", name = "Packaging", showcontent = true },
+]
