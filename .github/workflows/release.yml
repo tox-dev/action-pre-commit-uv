@@ -90,15 +90,40 @@ jobs:
           TAG: ${{ github.event.release.tag_name || inputs.tag || github.ref_name }}
         run: |
           set -euo pipefail
-          if [[ ! "${TAG}" =~ ^v([0-9]+)\.([0-9]+)\.([0-9]+)$ ]]; then
+          is_versioned_tag() {
+            case "$1" in
+            v*.*.*) ;;
+            *) return 1 ;;
+            esac
+            case "$1" in
+            *.) return 1 ;;
+            esac
+            local -a components
+            IFS=. read -r -a components <<<"${1#v}"
+            [[ ${#components[@]} -eq 3 ]] || return 1
+            local component
+            for component in "${components[@]}"; do
+              case "$component" in
+              '' | *[!0-9]*) return 1 ;;
+              esac
+            done
+          }
+          if ! is_versioned_tag "$TAG"; then
             echo "::error::Unexpected tag format: ${TAG} (expected vMAJOR.MINOR.PATCH)" >&2
             exit 1
           fi
-          major="v${BASH_REMATCH[1]}"
-          minor="v${BASH_REMATCH[1]}.${BASH_REMATCH[2]}"
+          IFS=. read -r -a components <<<"${TAG#v}"
+          major="v${components[0]}"
+          minor="${major}.${components[1]}"
           sha="$(gh api "repos/${REPO}/commits/${TAG}" --jq '.sha')"
           for ref in "${major}" "${minor}"; do
-            latest=$(git tag --list "${ref}.*" | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' | sort -V | tail -n 1)
+            versions=()
+            while IFS= read -r candidate; do
+              if is_versioned_tag "$candidate"; then
+                versions+=("$candidate")
+              fi
+            done < <(git tag --list "${ref}.*")
+            latest=$(printf '%s\n' "${versions[@]}" | sort -V | tail -n 1)
             if [[ "$TAG" != "$latest" ]]; then
               echo "Keeping ${ref} at its newer release ${latest}"
               continue

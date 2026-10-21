@@ -16,7 +16,14 @@ repos:
     hooks:
       - id: mdformat
         args: ["--wrap", "120"]
-        files: ^(CHANGELOG\.md|README\.md|CONTRIBUTING\.md|changelog\.d/.*\.md)$
+        files: |-
+          (?x)
+          ^(?P<release_markdown>
+            CHANGELOG[.]md          # Published history
+            | README[.]md           # Project guide
+            | CONTRIBUTING[.]md     # Contribution guide
+            | changelog[.]d/.*[.]md # Unreleased fragments
+          )$
         additional_dependencies: ["mdformat-gfm==1.0.0"]
   - repo: https://github.com/scop/pre-commit-shfmt
     rev: 479be5958357ba5ab65ce47172117348516860e9 # frozen: v3.14.1-1
