@@ -73,7 +73,7 @@ jobs:
             --python "$RUNNER_TEMP/release-tools/bin/python" \
             --group release pylock.toml
           echo "$RUNNER_TEMP/release-tools/bin" >>"$GITHUB_PATH"
-      - uses: tox-dev/github-workflows/render-release-notes@8db87d4730353b61630d66cbc592d6bed0c85d2b
+      - uses: tox-dev/github-workflows/render-release-notes@0058b07258b89dbb66be0d9be229adbb336b5768
         with:
           tag: ${{ needs.verify-tag.outputs.tag }}
           changelog: CHANGELOG.md
@@ -97,7 +97,7 @@ jobs:
           name: release-notes
           path: ${{ runner.temp }}/release-notes
       - name: Publish GitHub release
-        uses: tox-dev/github-workflows/publish-github-release@8db87d4730353b61630d66cbc592d6bed0c85d2b
+        uses: tox-dev/github-workflows/publish-github-release@0058b07258b89dbb66be0d9be229adbb336b5768
         env:
           GH_TOKEN: ${{ github.token }}
         with:

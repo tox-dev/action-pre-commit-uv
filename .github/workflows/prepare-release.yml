@@ -16,13 +16,14 @@ permissions: {}
 jobs:
   prepare:
     if: github.ref == 'refs/heads/main'
-    uses: tox-dev/github-workflows/.github/workflows/prepare-towncrier-release.yaml@8db87d4730353b61630d66cbc592d6bed0c85d2b
+    uses: tox-dev/github-workflows/.github/workflows/prepare-towncrier-release.yaml@0058b07258b89dbb66be0d9be229adbb336b5768
     permissions:
       contents: read
       pull-requests: read
     with:
       bump: ${{ inputs.bump }}
       tag-prefix: v
+      changelog-prefix: v
       changelog: CHANGELOG.md
       fragments: changelog.d
       format: markdown

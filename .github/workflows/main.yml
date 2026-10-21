@@ -69,7 +69,7 @@ jobs:
             --python "$RUNNER_TEMP/release-tools/bin/python" \
             --group release pylock.toml
           echo "$RUNNER_TEMP/release-tools/bin" >>"$GITHUB_PATH"
-      - uses: tox-dev/github-workflows/validate-news@8db87d4730353b61630d66cbc592d6bed0c85d2b
+      - uses: tox-dev/github-workflows/validate-news@0058b07258b89dbb66be0d9be229adbb336b5768
   hook-update-cooldown:
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-26.04
@@ -77,7 +77,7 @@ jobs:
       contents: read
       pull-requests: read
     steps:
-      - uses: tox-dev/github-workflows/check-hook-update-cooldown@8db87d4730353b61630d66cbc592d6bed0c85d2b
+      - uses: tox-dev/github-workflows/check-hook-update-cooldown@0058b07258b89dbb66be0d9be229adbb336b5768
         with:
           repository: ${{ github.repository }}
           pull-request: ${{ github.event.pull_request.number }}
