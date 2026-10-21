@@ -21,6 +21,7 @@ runs:
       if: inputs.uv-install == 'true' || (inputs.uv-install == 'auto' && steps.check-uv.outputs.installed != 'true')
       uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884 # v10.3.0
       with:
+        version: latest-known
         enable-cache: true
         cache-dependency-glob: '.pre-commit-config.yaml'
     - run: uv run --isolated --no-sync true && echo "pythonLocation=$(uv python find)" >>$GITHUB_ENV

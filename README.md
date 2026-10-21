@@ -46,7 +46,8 @@ You can override this with `'true'` (always install) or `'false'` (never install
 ```yaml
   - uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884 # v10.3.0
     with:
-      python-version: "3.15"
+      version: latest-known
+      python-version: '3.15'
   - uses: tox-dev/action-pre-commit-uv@v1
     with:
       uv-install: 'false'
