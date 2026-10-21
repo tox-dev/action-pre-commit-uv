@@ -68,5 +68,12 @@ jobs:
     steps:
       - env:
           NEEDS_JSON: ${{ toJSON(needs) }}
+          EVENT_NAME: ${{ github.event_name }}
         run: |
-          jq -e 'all(to_entries[]; .value.result == "success" or (.key == "news" and .value.result == "skipped"))' <<<"$NEEDS_JSON"
+          jq -e --arg event "$EVENT_NAME" '
+            all(
+              to_entries[];
+              .value.result == "success" or
+              (.key == "news" and .value.result == "skipped" and $event != "pull_request")
+            )
+          ' <<<"$NEEDS_JSON"
