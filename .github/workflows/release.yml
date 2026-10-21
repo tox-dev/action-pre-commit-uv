@@ -47,6 +47,7 @@ jobs:
     needs: notes
     if: github.event_name == 'push'
     runs-on: ubuntu-26.04
+    environment: release
     permissions:
       contents: write
     steps:
