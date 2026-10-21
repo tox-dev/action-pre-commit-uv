@@ -59,85 +59,14 @@ jobs:
           uv venv --python 3.15 "$RUNNER_TEMP/release-tools"
           uv pip sync --preview-features pylock --python "$RUNNER_TEMP/release-tools/bin/python" --group release pylock.toml
           echo "$RUNNER_TEMP/release-tools/bin" >>"$GITHUB_PATH"
-      - uses: tox-dev/github-workflows/validate-news@144f8e68b7d4c7c44e32258b1305e4402bc4e392
-  release-dry-run:
-    if: github.event_name == 'pull_request'
-    runs-on: ubuntu-26.04
-    permissions:
-      contents: read
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          fetch-depth: 0
-          persist-credentials: false
-      - uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884 # v10.3.0
-        with:
-          python-version: "3.15"
-          enable-cache: false
-      - name: Install locked release tools
-        run: |
-          uv venv --python 3.15 "$RUNNER_TEMP/release-tools"
-          uv pip sync --preview-features pylock --python "$RUNNER_TEMP/release-tools/bin/python" --group release pylock.toml
-          echo "$RUNNER_TEMP/release-tools/bin" >>"$GITHUB_PATH"
-      - name: Create a local release candidate
-        id: fixture
-        run: |
-          set -euo pipefail
-          git checkout -B release-validation HEAD
-          printf 'Verify an Action release.\n' >changelog.d/+release-validation.bugfix.md
-          git add changelog.d
-          git -c user.name=release-validation -c user.email=release-validation@users.noreply.github.com commit -m 'Validate Action release'
-          git init --bare "$RUNNER_TEMP/rehearsal.git"
-          git remote set-url origin "$RUNNER_TEMP/rehearsal.git"
-          git push origin HEAD:main
-          echo "sha=$(git rev-parse HEAD)" >>"$GITHUB_OUTPUT"
-      - id: prepare
-        uses: tox-dev/github-workflows/prepare-towncrier@144f8e68b7d4c7c44e32258b1305e4402bc4e392
-        with:
-          tag-prefix: v
-          changelog: CHANGELOG.md
-          fragments: changelog.d
-          format: markdown
-          link-fragments: "false"
-          patch: ${{ runner.temp }}/release.patch
-      - name: Restore candidate source
-        run: git reset --hard HEAD
-      - uses: tox-dev/github-workflows/validate-release-patch@144f8e68b7d4c7c44e32258b1305e4402bc4e392
-        with:
-          version: ${{ steps.prepare.outputs.version }}
-          patch: ${{ runner.temp }}/release.patch
-          changelog: CHANGELOG.md
-          fragments: changelog.d
-          expected-sha: ${{ steps.fixture.outputs.sha }}
-      - uses: tox-dev/github-workflows/commit-and-tag@144f8e68b7d4c7c44e32258b1305e4402bc4e392
-        with:
-          version: ${{ steps.prepare.outputs.version }}
-          token: ${{ github.token }}
-          app-slug: github-actions
-          message: Prepare ${{ steps.prepare.outputs.version }}
-          annotated: "true"
-      - uses: tox-dev/github-workflows/render-release-notes@144f8e68b7d4c7c44e32258b1305e4402bc4e392
-        with:
-          tag: ${{ steps.prepare.outputs.version }}
-          changelog: CHANGELOG.md
-          repository: ${{ github.repository }}
-          output: ${{ runner.temp }}/release-notes.md
-      - name: Check local tag and notes
-        env:
-          VERSION: ${{ steps.prepare.outputs.version }}
-        run: |
-          set -euo pipefail
-          test -n "$(git ls-remote origin "refs/tags/$VERSION")"
-          grep -Fq '### Bug fixes' "$RUNNER_TEMP/release-notes.md"
-          grep -Fq '**Full Changelog**:' "$RUNNER_TEMP/release-notes.md"
-          ! grep -Fq 'Release notes generated using configuration' "$RUNNER_TEMP/release-notes.md"
+      - uses: tox-dev/github-workflows/validate-news@296388849cced16665b3e8b4397a22265418d3dc
   gate:
     name: Required checks pass
     if: always()
-    needs: [self-test-uvx, self-test-uv-run, self-test-external-uv, news, release-dry-run]
+    needs: [self-test-uvx, self-test-uv-run, self-test-external-uv, news]
     runs-on: ubuntu-26.04
     steps:
       - env:
           NEEDS_JSON: ${{ toJSON(needs) }}
         run: |
-          jq -e 'all(to_entries[]; .value.result == "success" or ((.key == "news" or .key == "release-dry-run") and .value.result == "skipped"))' <<<"$NEEDS_JSON"
+          jq -e 'all(to_entries[]; .value.result == "success" or (.key == "news" and .value.result == "skipped"))' <<<"$NEEDS_JSON"

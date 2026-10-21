@@ -2,33 +2,33 @@ default_language_version:
   python: python3.15
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v6.0.0
+    rev: 3e8a8703264a2f4a69428a0aa4dcb512790b2c8c # frozen: v6.0.0
     hooks:
       - id: trailing-whitespace
       - id: end-of-file-fixer
       - id: check-yaml
   - repo: https://github.com/zizmorcore/zizmor-pre-commit
-    rev: v1.31.1
+    rev: c92afdf2c6ca336aaa8f39e2bd8d48f62dbd8e1f # frozen: v1.31.1
     hooks:
       - id: zizmor
   - repo: https://github.com/hukkin/mdformat
-    rev: "1.0.0"
+    rev: "82912cdaea4fb830f751504486a7879c70526547" # frozen: 1.0.0
     hooks:
       - id: mdformat
         args: ["--wrap", "120"]
         files: ^(CHANGELOG\.md|README\.md|CONTRIBUTING\.md|changelog\.d/.*\.md)$
-        additional_dependencies: ["mdformat-gfm>=1"]
+        additional_dependencies: ["mdformat-gfm==1.0.0"]
   - repo: https://github.com/scop/pre-commit-shfmt
-    rev: v3.14.1-1
+    rev: 479be5958357ba5ab65ce47172117348516860e9 # frozen: v3.14.1-1
     hooks:
       - id: shfmt
         args: ["-i", "2"]
   - repo: https://github.com/shellcheck-py/shellcheck-py
-    rev: v0.11.0.1
+    rev: a6564f5d57444e123433a5c9af733e3975c77229 # frozen: v0.11.0.1-1
     hooks:
       - id: shellcheck
   - repo: https://github.com/google/yamlfmt
-    rev: v0.21.0
+    rev: 21ca5323a9c87ee37a434e0ca908efc0a89daa07 # frozen: v0.21.0
     hooks:
       - id: yamlfmt
 ci:

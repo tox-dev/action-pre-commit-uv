@@ -6,7 +6,7 @@ on:
 permissions: {}
 jobs:
   upgrade:
-    uses: tox-dev/github-workflows/.github/workflows/upgrade-release-tools.yaml@144f8e68b7d4c7c44e32258b1305e4402bc4e392
+    uses: tox-dev/github-workflows/.github/workflows/upgrade-release-tools.yaml@296388849cced16665b3e8b4397a22265418d3dc
     permissions:
       contents: write
       pull-requests: write
