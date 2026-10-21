@@ -6,9 +6,9 @@ checkout without one, and a checkout where uv is already installed.
 ## Release notes
 
 Add a Markdown file under `changelog.d` for a change Action users should know about. Name it `+topic.feature.md`,
-`+topic.change.md`, `+topic.bugfix.md`, or `+topic.doc.md`. Other supported categories are `security`, `performance`,
-`deprecation`, `removal`, and `packaging`. One pull request can have several fragments. Describe the change from the
-user's point of view; do not add a fragment for CI or dependency maintenance alone.
+`+topic.change.md`, `+topic.bugfix.md`, or `+topic.doc.md`. Other supported categories are `breaking`, `security`,
+`performance`, `deprecation`, `removal`, and `packaging`. One pull request can have several fragments. Describe the
+change from the user's point of view; do not add a fragment for CI or dependency maintenance alone.
 
 The release tooling links a named fragment to its squash-merged pull request and human author. You do not need a pull
 request number when creating the file. If the pull request has no user-facing change, apply the `skip news` label; the

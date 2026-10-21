@@ -33,7 +33,10 @@ jobs:
       - name: Install locked release tools
         run: |
           uv venv --python 3.15 "$RUNNER_TEMP/release-tools"
-          uv pip sync --preview-features pylock --python "$RUNNER_TEMP/release-tools/bin/python" --group release pylock.toml
+          uv pip sync \
+            --preview-features pylock \
+            --python "$RUNNER_TEMP/release-tools/bin/python" \
+            --group release pylock.toml
           echo "$RUNNER_TEMP/release-tools/bin" >>"$GITHUB_PATH"
       - name: Verify exact version tag
         id: verify
@@ -65,9 +68,12 @@ jobs:
       - name: Install locked release tools
         run: |
           uv venv --python 3.15 "$RUNNER_TEMP/release-tools"
-          uv pip sync --preview-features pylock --python "$RUNNER_TEMP/release-tools/bin/python" --group release pylock.toml
+          uv pip sync \
+            --preview-features pylock \
+            --python "$RUNNER_TEMP/release-tools/bin/python" \
+            --group release pylock.toml
           echo "$RUNNER_TEMP/release-tools/bin" >>"$GITHUB_PATH"
-      - uses: tox-dev/github-workflows/render-release-notes@296388849cced16665b3e8b4397a22265418d3dc
+      - uses: tox-dev/github-workflows/render-release-notes@8db87d4730353b61630d66cbc592d6bed0c85d2b
         with:
           tag: ${{ needs.verify-tag.outputs.tag }}
           changelog: CHANGELOG.md
@@ -91,7 +97,7 @@ jobs:
           name: release-notes
           path: ${{ runner.temp }}/release-notes
       - name: Publish GitHub release
-        uses: tox-dev/github-workflows/publish-github-release@d88002302950ed36200e62673f592acc40e6b151
+        uses: tox-dev/github-workflows/publish-github-release@8db87d4730353b61630d66cbc592d6bed0c85d2b
         env:
           GH_TOKEN: ${{ github.token }}
         with:
@@ -103,8 +109,10 @@ jobs:
   update-floating-tags:
     needs: [verify-tag, notes, github-release]
     runs-on: ubuntu-26.04
-    if: >-
-      always() && needs.verify-tag.result == 'success' && needs.notes.result == 'success' && (needs.github-release.result == 'success' || needs.github-release.result == 'skipped')
+    if: |-
+      always() && needs.verify-tag.result == 'success' &&
+      needs.notes.result == 'success' &&
+      (needs.github-release.result == 'success' || needs.github-release.result == 'skipped')
     environment: release-auth
     permissions:
       contents: read
