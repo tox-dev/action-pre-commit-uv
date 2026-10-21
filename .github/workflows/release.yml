@@ -9,19 +9,22 @@ on:
       tag:
         description: Full version tag to point the floating tags at (e.g. v1.0.4)
         required: true
+      dry-run:
+        description: Validate release notes without moving tags
+        type: boolean
+        default: false
 permissions:
   contents: read
 jobs:
-  update-floating-tags:
+  notes:
     runs-on: ubuntu-26.04
     if: github.event_name != 'release' || !github.event.release.prerelease
-    environment: release-auth
     permissions:
-      contents: write
+      contents: read
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          ref: ${{ github.event.release.tag_name || inputs.tag || github.ref_name }}
+          ref: ${{ inputs.dry-run && github.sha || github.event.release.tag_name || inputs.tag || github.ref_name }}
           fetch-depth: 0
           persist-credentials: false
       - uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884 # v10.3.0
@@ -33,12 +36,28 @@ jobs:
           uv venv --python 3.15 "$RUNNER_TEMP/release-tools"
           uv pip sync --preview-features pylock --python "$RUNNER_TEMP/release-tools/bin/python" --group release pylock.toml
           echo "$RUNNER_TEMP/release-tools/bin" >>"$GITHUB_PATH"
-      - uses: tox-dev/github-workflows/render-release-notes@144f8e68b7d4c7c44e32258b1305e4402bc4e392
+      - uses: tox-dev/github-workflows/render-release-notes@c72de07ce576af07b6abe0f1edfc999c288e743e
         with:
           tag: ${{ github.event.release.tag_name || inputs.tag || github.ref_name }}
           changelog: CHANGELOG.md
           repository: ${{ github.repository }}
           output: ${{ runner.temp }}/release-notes.md
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: release-notes
+          path: ${{ runner.temp }}/release-notes.md
+          if-no-files-found: error
+  github-release:
+    needs: notes
+    runs-on: ubuntu-26.04
+    permissions:
+      contents: write
+    steps:
+      - if: github.event_name == 'push'
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: release-notes
+          path: ${{ runner.temp }}/release-notes
       - name: Publish GitHub release
         if: github.event_name == 'push'
         env:
@@ -46,7 +65,20 @@ jobs:
           TAG: ${{ github.ref_name }}
         run: |
           set -euo pipefail
-          gh release create "$TAG" --verify-tag --title "$TAG" --notes-file "$RUNNER_TEMP/release-notes.md"
+          gh release create "$TAG" --verify-tag --title "$TAG" --notes-file "$RUNNER_TEMP/release-notes/release-notes.md"
+  update-floating-tags:
+    needs: [notes, github-release]
+    runs-on: ubuntu-26.04
+    if: github.event_name != 'workflow_dispatch' || !inputs.dry-run
+    environment: release-auth
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.release.tag_name || inputs.tag || github.ref_name }}
+          fetch-depth: 0
+          persist-credentials: false
       - id: token
         uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
         with:
