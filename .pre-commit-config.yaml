@@ -39,4 +39,4 @@ repos:
     hooks:
       - id: yamlfmt
 ci:
-  autoupdate_schedule: quarterly
+  autoupdate_schedule: weekly
