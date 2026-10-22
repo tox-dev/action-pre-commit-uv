@@ -4,6 +4,30 @@ release = [
   "release-creator>=0.5.1",
   "towncrier>=26.9",
 ]
+release-check = [
+  "prek>=0.5",
+]
+
+release-notes = [
+  "release-creator>=0.5.1",
+]
+
+release-news = [
+  "release-creator>=0.5.1",
+  "towncrier>=26.9",
+]
+
+release-prepare = [
+  "prek>=0.5",
+  "release-creator>=0.5.1",
+  "towncrier>=26.9",
+]
+
+release-validate = [
+  "prek>=0.5",
+  "release-creator>=0.5.1",
+]
+
 
 [tool.uv]
 package = false
