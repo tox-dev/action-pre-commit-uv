@@ -565,15 +565,40 @@ size = 5517355
 sha256 = "3db3191d2509830c75438e20956a47c2259867d18a4106064ed75088b968a0c6"
 
 [[packages]]
-name = "release-creator"
-version = "0.4.2.dev61+ga5873f5d6"
+name = "pyyaml"
+version = "6.0.3"
+index = "https://pypi.org/simple"
 marker = "\"release\" in dependency_groups"
 
-[packages.vcs]
-type = "git"
-url = "https://github.com/tox-dev/release-creator"
-requested-revision = "a5873f5d66c5b1ff07da6294aa2719764fa9f864"
-commit-id = "a5873f5d66c5b1ff07da6294aa2719764fa9f864"
+[packages.sdist]
+url = "https://files.pythonhosted.org/packages/05/8e/961c0007c59b8dd7729d542c61a4d537767a59645b82a0b521206e1e25c2/pyyaml-6.0.3.tar.gz"
+upload-time = 2025-09-25 21:33:16+00:00
+size = 130960
+
+[packages.sdist.hashes]
+sha256 = "d76623373421df22fb4cf8817020cbb7ef15c725b9d5e45f17e189bfc384190f"
+
+[[packages]]
+name = "release-creator"
+version = "0.5.0"
+index = "https://pypi.org/simple"
+marker = "\"release\" in dependency_groups"
+
+[packages.sdist]
+url = "https://files.pythonhosted.org/packages/2e/64/830a7a0c3e984d31429a3a605a760b60c2442413d1cd979c938976b5581b/release_creator-0.5.0.tar.gz"
+upload-time = 2026-10-22 06:32:59+00:00
+size = 156415
+
+[packages.sdist.hashes]
+sha256 = "e3a5d0b7ab8781ea7f66bb95353792a12592c8d40cb81a575e5defcbd2e3d3fd"
+
+[[packages.wheels]]
+url = "https://files.pythonhosted.org/packages/78/87/9c0644b186b62b1fb1f15f0d49a0982dad1b036c7d393866c1e2b58a3e98/release_creator-0.5.0-py3-none-any.whl"
+upload-time = 2026-10-22 06:32:58+00:00
+size = 49978
+
+[packages.wheels.hashes]
+sha256 = "a056a01b1484e00f403b0fae054e3b3b6bebd8621e1e430ba8f83cdf939fa736"
 
 [[packages]]
 name = "tomli-w"
