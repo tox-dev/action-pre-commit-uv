@@ -31,7 +31,7 @@ jobs:
           python-version: "3.15"
           enable-cache: false
       - name: Install locked release tools
-        uses: tox-dev/github-workflows/install-locked-tools@fcba1cc52c8e8bbb8c3305ee5e4bc454b9ab0c50
+        uses: tox-dev/github-workflows/install-locked-tools@cadf58a0dcc5d0c7853b248ab7c2b19bb93675d1
         with:
           groups: release-notes
           venv: ${{ runner.temp }}/release-tools
@@ -65,17 +65,16 @@ jobs:
           python-version: "3.15"
           enable-cache: false
       - name: Install locked release tools
-        uses: tox-dev/github-workflows/install-locked-tools@fcba1cc52c8e8bbb8c3305ee5e4bc454b9ab0c50
+        uses: tox-dev/github-workflows/install-locked-tools@cadf58a0dcc5d0c7853b248ab7c2b19bb93675d1
         with:
           groups: release-notes
           venv: ${{ runner.temp }}/release-tools
       - name: Add installed tools to PATH
         run: echo "$RUNNER_TEMP/release-tools/bin" >>"$GITHUB_PATH"
-      - uses: tox-dev/github-workflows/render-release-notes@fcba1cc52c8e8bbb8c3305ee5e4bc454b9ab0c50
+      - uses: tox-dev/github-workflows/render-release-notes@cadf58a0dcc5d0c7853b248ab7c2b19bb93675d1
         with:
           tag: ${{ needs.verify-tag.outputs.tag }}
           changelog: CHANGELOG.md
-          repository: ${{ github.repository }}
           output: ${{ runner.temp }}/release-notes.md
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
@@ -95,11 +94,10 @@ jobs:
           name: release-notes
           path: ${{ runner.temp }}/release-notes
       - name: Publish GitHub release
-        uses: tox-dev/github-workflows/publish-github-release@fcba1cc52c8e8bbb8c3305ee5e4bc454b9ab0c50
+        uses: tox-dev/github-workflows/publish-github-release@cadf58a0dcc5d0c7853b248ab7c2b19bb93675d1
         env:
           GH_TOKEN: ${{ github.token }}
         with:
-          repository: ${{ github.repository }}
           tag: ${{ needs.verify-tag.outputs.tag }}
           commit: ${{ needs.verify-tag.outputs.commit }}
           title: ${{ needs.verify-tag.outputs.tag }}
