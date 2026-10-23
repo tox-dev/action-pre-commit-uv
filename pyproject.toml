@@ -8,7 +8,7 @@ dependencies = []
 lock-tools = [ "nab==0.0.22" ]
 release = [
   "prek>=0.5",
-  "release-creator>=0.6.0",
+  "release-creator>=0.6.5",
   "towncrier>=26.9",
 ]
 release-check = [
@@ -16,23 +16,23 @@ release-check = [
 ]
 
 release-notes = [
-  "release-creator>=0.6.0",
+  "release-creator>=0.6.5",
 ]
 
 release-news = [
-  "release-creator>=0.6.0",
+  "release-creator>=0.6.5",
   "towncrier>=26.9",
 ]
 
 release-prepare = [
   "prek>=0.5",
-  "release-creator>=0.6.0",
+  "release-creator>=0.6.5",
   "towncrier>=26.9",
 ]
 
 release-validate = [
   "prek>=0.5",
-  "release-creator>=0.6.0",
+  "release-creator>=0.6.5",
 ]
 
 
@@ -51,10 +51,10 @@ platforms = [ "linux_x86_64", "linux_aarch64", "macos_arm64", "windows_amd64" ]
 
 [[tool.nab.package-rules]]
 match = [ "nab", "nab-index", "nab-markersets", "nab-project", "nab-provider", "nab-resolver" ]
-uploaded-prior-to = "2026-10-19T00:00:00Z"
+uploaded-prior-to = "2026-10-18T05:45:09Z"
 
 [tool.nab.packages.release-creator]
-uploaded-prior-to = "2026-10-23T02:44:40Z"
+uploaded-prior-to = "2026-10-23T19:54:50Z"
 
 [tool.uv.dependency-groups]
 release = { requires-python = ">=3.15" }
