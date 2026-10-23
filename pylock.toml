@@ -7,7 +7,6 @@ environments = [
 ]
 requires-python = ">=3.15"
 dependency-groups = [
-    "build",
     "lock-tools",
     "release-check",
     "release-news",
@@ -969,16 +968,14 @@ command-line = [
     "nab",
     "lock",
     "--groups",
-    "build",
-    "lock-tools",
     "release-check",
-    "release-news",
     "release-notes",
+    "release-news",
     "release-prepare",
     "release-validate",
+    "lock-tools",
     "--output",
     "pylock.toml",
-    "--upgrade",
 ]
 input-path = "pyproject.toml"
 mode = "universal"

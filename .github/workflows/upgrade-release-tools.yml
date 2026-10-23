@@ -13,4 +13,4 @@ jobs:
       RELEASE_APP_PRIVATE_KEY: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
     with:
       lock-groups: >-
-        release-check release-notes release-news release-prepare release-validate build lock-tools
+        release-check release-notes release-news release-prepare release-validate lock-tools

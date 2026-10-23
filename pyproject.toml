@@ -5,7 +5,6 @@ requires-python = ">=3.15"
 dependencies = []
 
 [dependency-groups]
-build = []
 lock-tools = [ "nab==0.0.22" ]
 release = [
   "prek>=0.5",
