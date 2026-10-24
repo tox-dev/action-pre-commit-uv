@@ -31,7 +31,7 @@ jobs:
           python-version: "3.15"
           enable-cache: false
       - name: Install locked release tools
-        uses: tox-dev/github-workflows/install-locked-tools@e2d5e308194a31710039f3237b7157431c0e38b5 # v2.0.0
+        uses: tox-dev/github-workflows/install-locked-tools@55f51f9b5cc0b40f280155a95de2d4f0ecbf7be1 # v3.0.0
         with:
           groups: release-notes
           venv: ${{ runner.temp }}/release-tools
@@ -44,7 +44,28 @@ jobs:
           release-creator tags "$TAG"
           commit=$(git rev-parse --verify "refs/tags/$TAG^{commit}")
           test "$(git rev-parse HEAD)" = "$commit"
+          git fetch origin main
+          if ! git merge-base --is-ancestor "$commit" origin/main; then
+            echo "::error::$TAG is not on main" >&2
+            exit 1
+          fi
           printf 'tag=%s\ncommit=%s\n' "$TAG" "$commit" >>"$GITHUB_OUTPUT"
+      - name: Install locked source-check tools
+        uses: tox-dev/github-workflows/install-locked-tools@55f51f9b5cc0b40f280155a95de2d4f0ecbf7be1 # v3.0.0
+        with:
+          groups: release-check
+          venv: ${{ runner.temp }}/source-check-tools
+      - uses: tox-dev/github-workflows/verify-frozen-hooks@55f51f9b5cc0b40f280155a95de2d4f0ecbf7be1 # v3.0.0
+      - name: Run cooled source hooks
+        env:
+          UV_EXCLUDE_NEWER: 7 days
+          UV_NO_CONFIG: "1"
+          UV_NO_SOURCES: "1"
+        run: |
+          unset UV_CONFIG_FILE UV_INDEX UV_INDEX_URL UV_DEFAULT_INDEX UV_EXTRA_INDEX_URL
+          unset UV_FIND_LINKS UV_EXCLUDE_NEWER_PACKAGE
+          unset UV_INSECURE_HOST UV_SYSTEM_CERTS SSL_CERT_FILE SSL_CERT_DIR
+          prek run --all-files
   notes:
     needs: verify-tag
     runs-on: ubuntu-26.04
@@ -63,11 +84,11 @@ jobs:
           python-version: "3.15"
           enable-cache: false
       - name: Install locked release tools
-        uses: tox-dev/github-workflows/install-locked-tools@e2d5e308194a31710039f3237b7157431c0e38b5 # v2.0.0
+        uses: tox-dev/github-workflows/install-locked-tools@55f51f9b5cc0b40f280155a95de2d4f0ecbf7be1 # v3.0.0
         with:
           groups: release-notes
           venv: ${{ runner.temp }}/release-tools
-      - uses: tox-dev/github-workflows/render-release-notes@e2d5e308194a31710039f3237b7157431c0e38b5 # v2.0.0
+      - uses: tox-dev/github-workflows/render-release-notes@55f51f9b5cc0b40f280155a95de2d4f0ecbf7be1 # v3.0.0
         with:
           tag: ${{ needs.verify-tag.outputs.tag }}
           changelog: CHANGELOG.md
@@ -90,7 +111,7 @@ jobs:
           name: release-notes
           path: ${{ runner.temp }}/release-notes
       - name: Publish GitHub release
-        uses: tox-dev/github-workflows/publish-github-release@e2d5e308194a31710039f3237b7157431c0e38b5 # v2.0.0
+        uses: tox-dev/github-workflows/publish-github-release@55f51f9b5cc0b40f280155a95de2d4f0ecbf7be1 # v3.0.0
         env:
           GH_TOKEN: ${{ github.token }}
         with:
@@ -114,6 +135,40 @@ jobs:
           ref: ${{ needs.verify-tag.outputs.commit }}
           fetch-depth: 0
           persist-credentials: false
+      - name: Verify released tag on main
+        env:
+          TAG: ${{ needs.verify-tag.outputs.tag }}
+          COMMIT: ${{ needs.verify-tag.outputs.commit }}
+        run: |
+          set -euo pipefail
+          git fetch origin main
+          if ! git merge-base --is-ancestor "$COMMIT" origin/main; then
+            echo "::error::$TAG is not on main" >&2
+            exit 1
+          fi
+          ref="refs/tags/$TAG"
+          remote=$(git ls-remote origin "$ref" "$ref^{}")
+          tagged=$(awk -v name="$ref^{}" '$2 == name { print $1 }' <<< "$remote")
+          if [[ -z "$tagged" ]]; then
+            tagged=$(awk -v name="$ref" '$2 == name { print $1 }' <<< "$remote")
+          fi
+          if [[ "$tagged" != "$COMMIT" ]]; then
+            echo "::error::$TAG moved after source verification" >&2
+            exit 1
+          fi
+      - name: Verify published GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          TAG: ${{ needs.verify-tag.outputs.tag }}
+        run: |
+          set -euo pipefail
+          published=$(gh api "repos/$REPO/releases/tags/$TAG" \
+            --jq 'select(.draft == false and .prerelease == false) | .tag_name')
+          if [[ "$published" != "$TAG" ]]; then
+            echo "::error::$TAG has no published stable GitHub release" >&2
+            exit 1
+          fi
       - id: token
         uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
         with:

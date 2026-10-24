@@ -7,7 +7,7 @@ dependencies = []
 [dependency-groups]
 release = [
   "prek>=0.5",
-  "release-creator>=1.0.0",
+  "release-creator>=1.1.0",
   "towncrier>=26.9",
 ]
 release-check = [
@@ -15,23 +15,23 @@ release-check = [
 ]
 
 release-notes = [
-  "release-creator>=1.0.0",
+  "release-creator>=1.1.0",
 ]
 
 release-news = [
-  "release-creator>=1.0.0",
+  "release-creator>=1.1.0",
   "towncrier>=26.9",
 ]
 
 release-prepare = [
   "prek>=0.5",
-  "release-creator>=1.0.0",
+  "release-creator>=1.1.0",
   "towncrier>=26.9",
 ]
 
 release-validate = [
   "prek>=0.5",
-  "release-creator>=1.0.0",
+  "release-creator>=1.1.0",
 ]
 
 
@@ -53,10 +53,10 @@ match = [ "nab", "nab-index", "nab-markersets", "nab-project", "nab-provider", "
 uploaded-prior-to = "2026-10-18T05:45:09Z"
 
 [tool.nab.packages.release-creator]
-uploaded-prior-to = "2026-10-24T06:07:46Z"
+uploaded-prior-to = "2026-10-24T09:08:40Z"
 
-[tool.uv.dependency-groups]
-release = { requires-python = ">=3.15" }
+[tool.release-creator.locks]
+exclude-newer-package = { release-creator = "2026-10-24T09:08:40Z" }
 
 [tool.towncrier]
 name = "action-pre-commit-uv"

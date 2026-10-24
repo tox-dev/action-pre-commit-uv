@@ -5,12 +5,20 @@ repos:
     rev: 3e8a8703264a2f4a69428a0aa4dcb512790b2c8c # frozen: v6.0.0
     hooks:
       - id: trailing-whitespace
+        additional_dependencies:
+          - "ruamel-yaml==0.19.1" # release-creator managed
       - id: end-of-file-fixer
+        additional_dependencies:
+          - "ruamel-yaml==0.19.1" # release-creator managed
       - id: check-yaml
+        additional_dependencies:
+          - "ruamel-yaml==0.19.1" # release-creator managed
   - repo: https://github.com/zizmorcore/zizmor-pre-commit
     rev: c92afdf2c6ca336aaa8f39e2bd8d48f62dbd8e1f # frozen: v1.31.1
     hooks:
       - id: zizmor
+        additional_dependencies:
+          - "zizmor==1.31.1" # release-creator managed
   - repo: https://github.com/hukkin/mdformat
     rev: "82912cdaea4fb830f751504486a7879c70526547" # frozen: 1.0.0
     hooks:
@@ -24,7 +32,12 @@ repos:
             | CONTRIBUTING[.]md     # Contribution guide
             | changelog[.]d/.*[.]md # Unreleased fragments
           )$
-        additional_dependencies: ["mdformat-gfm==1.0.0"]
+        additional_dependencies:
+          - "mdformat-gfm==1.0.0"
+          - "markdown-it-py==4.2.0" # release-creator managed
+          - "mdit-py-plugins==0.6.1" # release-creator managed
+          - "mdurl==0.1.2" # release-creator managed
+          - "wcwidth==0.9.2" # release-creator managed
   - repo: https://github.com/scop/pre-commit-shfmt
     rev: 479be5958357ba5ab65ce47172117348516860e9 # frozen: v3.14.1-1
     hooks:
