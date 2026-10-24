@@ -1,0 +1,78 @@
+[project]
+name = "action-pre-commit-uv-release-tools"
+version = "0"
+requires-python = ">=3.15"
+dependencies = []
+
+[dependency-groups]
+release = [
+  "prek>=0.5",
+  "release-creator>=1.1.0",
+  "towncrier>=26.9",
+]
+release-check = [
+  "prek>=0.5",
+]
+
+release-notes = [
+  "release-creator>=1.1.0",
+]
+
+release-news = [
+  "release-creator>=1.1.0",
+  "towncrier>=26.9",
+]
+
+release-prepare = [
+  "prek>=0.5",
+  "release-creator>=1.1.0",
+  "towncrier>=26.9",
+]
+
+release-validate = [
+  "prek>=0.5",
+  "release-creator>=1.1.0",
+]
+
+
+[tool.uv]
+package = false
+
+[tool.nab]
+mode = "universal"
+default-groups = []
+uploaded-prior-to = "P7D"
+decision-order = "stable"
+
+[tool.nab.matrix]
+python = ">=3.15,<3.16"
+platforms = [ "linux_x86_64", "linux_aarch64", "macos_arm64", "windows_amd64" ]
+
+[[tool.nab.package-rules]]
+match = [ "nab", "nab-index", "nab-markersets", "nab-project", "nab-provider", "nab-resolver" ]
+uploaded-prior-to = "2026-10-18T05:45:09Z"
+
+[tool.nab.packages.release-creator]
+uploaded-prior-to = "2026-10-24T09:08:40Z"
+
+[tool.release-creator.locks]
+exclude-newer-package = { release-creator = "2026-10-24T09:08:40Z" }
+
+[tool.towncrier]
+name = "action-pre-commit-uv"
+directory = "changelog.d"
+filename = "CHANGELOG.md"
+template = "release_creator.fragments:template.jinja2"
+title_format = false
+type = [
+  { directory = "feature", name = "Added", showcontent = true },
+  { directory = "change", name = "Changes", showcontent = true },
+  { directory = "bugfix", name = "Fixed", showcontent = true },
+  { directory = "doc", name = "Documentation", showcontent = true },
+  { directory = "breaking", name = "Breaking changes", showcontent = true },
+  { directory = "security", name = "Security", showcontent = true },
+  { directory = "performance", name = "Performance", showcontent = true },
+  { directory = "deprecation", name = "Deprecated", showcontent = true },
+  { directory = "removal", name = "Removed", showcontent = true },
+  { directory = "packaging", name = "Packaging", showcontent = true },
+]

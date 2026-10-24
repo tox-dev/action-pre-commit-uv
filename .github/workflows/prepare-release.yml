@@ -1,83 +1,29 @@
 name: Prepare release
-
 on:
   workflow_dispatch:
     inputs:
-      version:
-        description: Version to release, without a v prefix
+      bump:
+        description: Version bump type
         required: true
-
+        type: choice
+        options:
+          - auto
+          - major
+          - minor
+          - patch
+        default: auto
 permissions: {}
-
-concurrency:
-  group: prepare-release
-  cancel-in-progress: false
-
 jobs:
   prepare:
     if: github.ref == 'refs/heads/main'
-    runs-on: ubuntu-26.04
-    environment: release-auth
+    uses: tox-dev/github-workflows/.github/workflows/prepare-towncrier-release.yaml@55f51f9b5cc0b40f280155a95de2d4f0ecbf7be1 # v3.0.0
     permissions:
       contents: read
-    steps:
-      - id: token
-        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
-        with:
-          client-id: ${{ vars.RELEASE_APP_CLIENT_ID }}
-          private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
-          owner: ${{ github.repository_owner }}
-          repositories: ${{ github.event.repository.name }}
-          permission-contents: write
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          fetch-depth: 0
-          token: ${{ steps.token.outputs.token }}
-          persist-credentials: true # zizmor: ignore[artipacked] the release job pushes main and its tag
-      - name: Build changelog and push release
-        env:
-          VERSION: ${{ inputs.version }}
-          GH_TOKEN: ${{ steps.token.outputs.token }}
-          APP_SLUG: ${{ steps.token.outputs.app-slug }}
-        run: |
-          set -euo pipefail
-          git fetch origin main
-          git reset --hard origin/main
-          if [[ ! "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-            echo "::error::expected a major.minor.patch version"
-            exit 1
-          fi
-          tag="v$VERSION"
-          latest=$(git tag --list 'v*' | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' | sort -V | tail -n 1)
-          if [[ "$latest" == "$tag" || "$(printf '%s\n' "$latest" "$tag" | sort -V | tail -n 1)" != "$tag" ]]; then
-            echo "::error::$tag must be newer than $latest"
-            exit 1
-          fi
-          mapfile -d '' fragments < <(find changelog.d -maxdepth 1 -type f -name '*.md' -print0 | sort -z)
-          if (( ${#fragments[@]} == 0 )); then
-            echo "::error::no news fragments to release"
-            exit 1
-          fi
-          for fragment in "${fragments[@]}"; do
-            if [[ ! "$fragment" =~ ^changelog\.d/[0-9]+\.(feature|bugfix|doc)\.md$ || ! -s "$fragment" ]]; then
-              echo "::error::invalid or empty news fragment: $fragment"
-              exit 1
-            fi
-          done
-          {
-            printf '# Changelog\n\n## %s (%s)\n\n' "$tag" "$(date -u +%F)"
-            for fragment in "${fragments[@]}"; do
-              cat "$fragment"
-              printf '\n\n'
-            done
-            tail -n +3 CHANGELOG.md
-          } > "$RUNNER_TEMP/changelog.md"
-          mv "$RUNNER_TEMP/changelog.md" CHANGELOG.md
-          git rm -- "${fragments[@]}"
-          app_user_id=$(gh api "/users/${APP_SLUG}[bot]" --jq .id)
-          git config user.name "${APP_SLUG}[bot]"
-          git config user.email "${app_user_id}+${APP_SLUG}[bot]@users.noreply.github.com"
-          git add CHANGELOG.md changelog.d
-          git commit -m "Prepare $tag"
-          git tag -a "$tag" -m "Release $tag"
-          git push --atomic origin HEAD:main "refs/tags/$tag"
+      pull-requests: read
+    with:
+      bump: ${{ inputs.bump }}
+      tag-prefix: v
+      changelog-prefix: v
+      annotated: true
+    secrets:
+      RELEASE_APP_PRIVATE_KEY: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
