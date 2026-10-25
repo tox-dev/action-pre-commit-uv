@@ -1,5 +1,4 @@
-name: Update floating tags
-
+name: 🚀 Update floating tags
 on:
   push:
     tags: ["v*.*.*"]
@@ -10,85 +9,168 @@ on:
       tag:
         description: Full version tag to point the floating tags at (e.g. v1.0.4)
         required: true
-
 permissions:
   contents: read
-
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
 jobs:
-  update-floating-tags:
+  verify-tag:
+    name: 🏷️ Resolve release tag
+    runs-on: ubuntu-26.04
+    permissions:
+      contents: read
+    outputs:
+      tag: ${{ steps.verify.outputs.tag }}
+      commit: ${{ steps.verify.outputs.commit }}
+    steps:
+      - name: 📥 Check out code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: refs/tags/${{ github.event.release.tag_name || inputs.tag || github.ref_name }}
+          persist-credentials: false
+      - name: 🏷️ Resolve tag to its commit
+        id: verify
+        env:
+          TAG: ${{ github.event.release.tag_name || inputs.tag || github.ref_name }}
+        run: |
+          set -euo pipefail
+          commit=$(git rev-parse --verify "refs/tags/$TAG^{commit}")
+          printf 'tag=%s\ncommit=%s\n' "$TAG" "$commit" >>"$GITHUB_OUTPUT"
+  notes:
+    name: 📝 Render GitHub Release notes
+    needs: verify-tag
     runs-on: ubuntu-26.04
     if: github.event_name != 'release' || !github.event.release.prerelease
-    environment: release-auth
+    permissions:
+      contents: read
+    outputs:
+      artifact-id: ${{ steps.upload.outputs.artifact-id }}
+    steps:
+      - name: 📥 Check out code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ needs.verify-tag.outputs.commit }}
+          fetch-depth: 0
+          persist-credentials: false
+      - name: 🐍 Install uv
+        uses: astral-sh/setup-uv@07a047e608db84b3d8c06cd9a7c7dcc9c355c18e # v10.3.2
+        with:
+          version: latest-known
+          python-version: "3.15"
+          enable-cache: false
+      - name: 📦 Install locked release tools
+        uses: tox-dev/github-workflows/install-locked-tools@259a3d3fb578d00517ffb73341fdd463259b0b2f # 6.0.1
+        with:
+          groups: release-notes
+          venv: ${{ runner.temp }}/release-tools
+      - name: 📝 Render release notes
+        uses: tox-dev/github-workflows/render-release-notes@259a3d3fb578d00517ffb73341fdd463259b0b2f # 6.0.1
+        with:
+          tag: ${{ needs.verify-tag.outputs.tag }}
+          changelog: CHANGELOG.md
+      - name: 📤 Upload release notes
+        id: upload
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: release-notes
+          path: ${{ runner.temp }}/release-notes.md
+          if-no-files-found: error
+  github-release:
+    name: 🚀 Publish GitHub Release
+    needs: [verify-tag, notes]
+    if: github.event_name == 'push'
+    runs-on: ubuntu-26.04
+    environment: release
     permissions:
       contents: write
     steps:
-    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      with:
-        ref: ${{ github.event.release.tag_name || inputs.tag || github.ref_name }}
-        fetch-depth: 0
-        persist-credentials: false
-    - name: Require release notes in the changelog
-      env:
-        TAG: ${{ github.event.release.tag_name || inputs.tag || github.ref_name }}
-      run: |
-        if [[ ! "$TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-          echo "::error::unexpected release tag $TAG"
-          exit 1
-        fi
-        awk -v heading="## $TAG " '
-          /^## / { if (found) exit; found = index($0, heading) == 1; next }
-          found { print }
-        ' CHANGELOG.md > "$RUNNER_TEMP/release-notes.md"
-        if [[ ! -s "$RUNNER_TEMP/release-notes.md" ]]; then
-          echo "::error::CHANGELOG.md has no section for $TAG"
-          exit 1
-        fi
-    - name: Publish GitHub release
-      if: github.event_name == 'push'
-      env:
-        GH_TOKEN: ${{ github.token }}
-        TAG: ${{ github.ref_name }}
-      run: |
-        set -euo pipefail
-        previous=$(git tag --list | grep -E '^v?[0-9]+\.[0-9]+\.[0-9]+$' | awk '{ version = $0; sub(/^v/, "", version); print version, $0 }' | sort -V -k1,1 | awk -v tag="$TAG" '$2 == tag { print previous; exit } { previous = $2 }')
-        if [[ -n "$previous" ]]; then
-          printf '\n**Full Changelog**: https://github.com/%s/compare/%s...%s\n' "$GITHUB_REPOSITORY" "$previous" "$TAG" >> "$RUNNER_TEMP/release-notes.md"
-        else
-          printf '\n**Full Changelog**: https://github.com/%s/commits/%s\n' "$GITHUB_REPOSITORY" "$TAG" >> "$RUNNER_TEMP/release-notes.md"
-        fi
-        gh release create "$TAG" --verify-tag --title "$TAG" --notes-file "$RUNNER_TEMP/release-notes.md"
-    - id: token
-      uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
-      with:
-        client-id: ${{ vars.RELEASE_APP_CLIENT_ID }}
-        private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
-        owner: ${{ github.repository_owner }}
-        repositories: ${{ github.event.repository.name }}
-        permission-contents: write
-    - name: Move major and minor tags to the released version
-      env:
-        GH_TOKEN: ${{ steps.token.outputs.token }}
-        REPO: ${{ github.repository }}
-        TAG: ${{ github.event.release.tag_name || inputs.tag || github.ref_name }}
-      run: |
-        set -euo pipefail
-        if [[ ! "${TAG}" =~ ^v([0-9]+)\.([0-9]+)\.([0-9]+)$ ]]; then
-          echo "::error::Unexpected tag format: ${TAG} (expected vMAJOR.MINOR.PATCH)" >&2
-          exit 1
-        fi
-        major="v${BASH_REMATCH[1]}"
-        minor="v${BASH_REMATCH[1]}.${BASH_REMATCH[2]}"
-        sha="$(gh api "repos/${REPO}/commits/${TAG}" --jq '.sha')"
-        for ref in "${major}" "${minor}"; do
-          latest=$(git tag --list "${ref}.*" | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' | sort -V | tail -n 1)
-          if [[ "$TAG" != "$latest" ]]; then
-            echo "Keeping ${ref} at its newer release ${latest}"
-            continue
-          fi
-          if gh api "repos/${REPO}/git/ref/tags/${ref}" >/dev/null 2>&1; then
-            gh api -X PATCH "repos/${REPO}/git/refs/tags/${ref}" -f "sha=${sha}" -F force=true >/dev/null
-          else
-            gh api -X POST "repos/${REPO}/git/refs" -f "ref=refs/tags/${ref}" -f "sha=${sha}" >/dev/null
-          fi
-          echo "Pointed ${ref} -> ${TAG} (${sha})"
-        done
+      - name: 📩 Download release notes
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          artifact-ids: ${{ needs.notes.outputs.artifact-id }}
+          path: ${{ runner.temp }}
+      - name: 🚀 Publish GitHub release
+        uses: tox-dev/github-workflows/publish-github-release@259a3d3fb578d00517ffb73341fdd463259b0b2f # 6.0.1
+        env:
+          GH_TOKEN: ${{ github.token }}
+        with:
+          tag: ${{ needs.verify-tag.outputs.tag }}
+          commit: ${{ needs.verify-tag.outputs.commit }}
+          title: ${{ needs.verify-tag.outputs.tag }}
+          notes-file: ${{ runner.temp }}/release-notes.md
+  update-floating-tags:
+    name: 🏷️ Move floating major and minor tags
+    needs: [verify-tag, notes, github-release]
+    runs-on: ubuntu-26.04
+    if: |-
+      always() && needs.verify-tag.result == 'success' &&
+      needs.notes.result == 'success' &&
+      (needs.github-release.result == 'success' || needs.github-release.result == 'skipped')
+    environment: release-auth
+    permissions:
+      contents: read
+    steps:
+      - name: 📥 Check out code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ needs.verify-tag.outputs.commit }}
+          fetch-depth: 0
+          persist-credentials: false
+      - name: 🔑 Create release App token
+        id: token
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
+        with:
+          client-id: ${{ vars.RELEASE_APP_CLIENT_ID }}
+          private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+          repositories: ${{ github.event.repository.name }}
+          permission-contents: write
+      - name: 🏷️ Move major and minor tags to the released version
+        env:
+          GH_TOKEN: ${{ steps.token.outputs.token }}
+          REPO: ${{ github.repository }}
+          TAG: ${{ needs.verify-tag.outputs.tag }}
+          COMMIT: ${{ needs.verify-tag.outputs.commit }}
+        run: |
+          set -euo pipefail
+          is_versioned_tag() {
+            case "$1" in
+            v*.*.*) ;;
+            *) return 1 ;;
+            esac
+            case "$1" in
+            *.) return 1 ;;
+            esac
+            local -a components
+            IFS=. read -r -a components <<<"${1#v}"
+            [[ ${#components[@]} -eq 3 ]] || return 1
+            local component
+            for component in "${components[@]}"; do
+              case "$component" in
+              '' | *[!0-9]*) return 1 ;;
+              esac
+            done
+          }
+          IFS=. read -r -a components <<<"${TAG#v}"
+          major="v${components[0]}"
+          minor="${major}.${components[1]}"
+          for ref in "${major}" "${minor}"; do
+            versions=()
+            while IFS= read -r candidate; do
+              if is_versioned_tag "$candidate"; then
+                versions+=("$candidate")
+              fi
+            done < <(git tag --list "${ref}.*")
+            latest=$(printf '%s\n' "${versions[@]}" | sort -V | tail -n 1)
+            if [[ "$TAG" != "$latest" ]]; then
+              echo "Keeping ${ref} at its newer release ${latest}"
+              continue
+            fi
+            if gh api "repos/${REPO}/git/ref/tags/${ref}" >/dev/null 2>&1; then
+              gh api -X PATCH "repos/${REPO}/git/refs/tags/${ref}" -f "sha=${COMMIT}" -F force=true >/dev/null
+            else
+              gh api -X POST "repos/${REPO}/git/refs" -f "ref=refs/tags/${ref}" -f "sha=${COMMIT}" >/dev/null
+            fi
+            echo "Pointed ${ref} -> ${TAG} (${COMMIT})"
+          done

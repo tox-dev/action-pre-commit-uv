@@ -1,75 +1,66 @@
-name: CI
-
+name: 🧪 CI
 on:
   pull_request:
-    types: [opened, synchronize, reopened, labeled, unlabeled]
+    types: [opened, synchronize, reopened]
   push:
     branches: [main, test-me-*]
-
 permissions:
   contents: read
-
 jobs:
   self-test-uvx:
+    name: 🧪 Self-test with uvx
     runs-on: ubuntu-26.04
     steps:
-    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      with:
-        persist-credentials: false
-    - name: self test action (uvx path)
-      uses: $/
+      - name: 📥 Check out code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: 🧪 Self test action (uvx path)
+        uses: $/
   self-test-uv-run:
+    name: 🧪 Self-test with uv run
     runs-on: ubuntu-26.04
     steps:
-    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      with:
-        persist-credentials: false
-    - run: printf '[project]\nname = "test"\nversion = "0.0.0"\nrequires-python = ">=3.13"\n' > pyproject.toml
-      shell: bash
-    - name: self test action (uv run path)
-      uses: $/
+      - name: 📥 Check out code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: 🐍 Install uv
+        uses: astral-sh/setup-uv@07a047e608db84b3d8c06cd9a7c7dcc9c355c18e # v10.3.2
+        with:
+          version: latest-known
+          python-version: "3.13"
+          enable-cache: false
+      - name: ⚙️ Write a test pyproject.toml
+        run: printf '[project]\nname = "test"\nversion = "0.0.0"\nrequires-python = ">=3.13,<3.14"\n' >pyproject.toml
+        shell: bash
+      - name: 🧪 Self test action (uv run path)
+        uses: $/
   self-test-external-uv:
+    name: 🧪 Self-test with external uv
     runs-on: ubuntu-26.04
     steps:
-    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      with:
-        persist-credentials: false
-    - uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884 # v10.3.0
-      with:
-        python-version: "3.15"
-        enable-cache: false
-    - name: self test action (external uv)
-      uses: $/
-      with:
-        uv-install: 'false'
-  news:
-    name: News fragment
-    if: github.event_name == 'pull_request' && !contains(github.event.pull_request.labels.*.name, 'skip news')
-    runs-on: ubuntu-26.04
-    steps:
-    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      with:
-        fetch-depth: 0
-        persist-credentials: false
-    - name: Require a user-facing change
-      run: |
-        found=0
-        while IFS= read -r path; do
-          if [[ "$path" =~ ^changelog\.d/[0-9]+\.(feature|bugfix|doc)\.md$ && -s "$path" ]]; then
-            found=1
-          fi
-        done < <(git diff --name-only --diff-filter=AM "origin/$GITHUB_BASE_REF"...HEAD)
-        if (( found == 0 )); then
-          echo "::error::add a nonempty changelog.d/<PR>.<type>.md fragment or apply skip news"
-          exit 1
-        fi
+      - name: 📥 Check out code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: 🐍 Install uv
+        uses: astral-sh/setup-uv@07a047e608db84b3d8c06cd9a7c7dcc9c355c18e # v10.3.2
+        with:
+          version: latest-known
+          python-version: "3.15"
+          enable-cache: false
+      - name: 🧪 Self test action (external uv)
+        uses: $/
+        with:
+          uv-install: 'false'
   gate:
-    name: Required checks pass
+    name: 🚦 ${{ github.event_name == 'pull_request' && 'Required checks pass' || 'Non-PR checks pass' }}
     if: always()
-    needs: [self-test-uvx, self-test-uv-run, self-test-external-uv, news]
+    needs: [self-test-uvx, self-test-uv-run, self-test-external-uv]
     runs-on: ubuntu-26.04
     steps:
-    - env:
-        NEEDS_JSON: ${{ toJSON(needs) }}
-      run: |
-        jq -e 'all(to_entries[]; .value.result == "success" or (.key == "news" and .value.result == "skipped"))' <<< "$NEEDS_JSON"
+      - name: 🚦 Require all needed jobs to pass
+        env:
+          NEEDS_JSON: ${{ toJSON(needs) }}
+        run: jq -e 'all(to_entries[]; .value.result == "success")' <<<"$NEEDS_JSON"

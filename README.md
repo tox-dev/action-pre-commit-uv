@@ -6,7 +6,8 @@
 A GitHub action to run [pre-commit](https://pre-commit.com) using
 [pre-commit-uv](https://github.com/tox-dev/pre-commit-uv).
 
-See the [changelog](CHANGELOG.md) for released changes.
+See the [changelog](CHANGELOG.md) for released changes. See [Contributing](CONTRIBUTING.md) for release-note and
+pull-request rules.
 
 ### using this action
 
@@ -22,9 +23,9 @@ on:
 
 jobs:
   pre-commit:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: tox-dev/action-pre-commit-uv@v1
 ```
 
@@ -43,9 +44,10 @@ By default (`uv-install: 'auto'`), the action detects whether uv is already avai
 You can override this with `'true'` (always install) or `'false'` (never install):
 
 ```yaml
-  - uses: astral-sh/setup-uv@v7
+  - uses: astral-sh/setup-uv@07a047e608db84b3d8c06cd9a7c7dcc9c355c18e # v10.3.2
     with:
-      version: 0.6.0
+      version: latest-known
+      python-version: '3.15'
   - uses: tox-dev/action-pre-commit-uv@v1
     with:
       uv-install: 'false'
