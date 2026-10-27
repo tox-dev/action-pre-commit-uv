@@ -2,6 +2,18 @@
 
 <!-- towncrier release notes start -->
 
+<a name="release-v1-1-1"></a>
+
+## v1.1.1 (2026-10-27)
+
+<a name="release-v1-1-1-packaging"></a>
+
+### Packaging
+
+- Releases now run on the shared tox-dev/github-workflows pipeline, with a locked release toolchain and generated GitHub
+  Release notes ([#45](https://github.com/tox-dev/action-pre-commit-uv/pull/45)) by
+  [@gaborbernat](https://github.com/gaborbernat).
+
 <a name="release-v1-1-0"></a>
 
 ## v1.1.0 (2026-10-10)
