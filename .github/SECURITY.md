@@ -35,8 +35,8 @@ outcome sounds.
 **In scope**
 
 - An input (`extra_args`, `uv-install`) reaching a shell as code rather than as data.
-- The action running a tool version or source it does not name: the pinned `setup-uv`, `pre-commit` and `pre-commit-uv`
-  from PyPI.
+- The action running a tool it does not name: `setup-uv` at its pinned SHA, the uv release whose checksum that
+  `setup-uv` bundles, and pre-commit and pre-commit-uv from the configured index.
 - A cache written by one ref being restored for a ref GitHub's cache scoping should isolate.
 
 **Out of scope**
