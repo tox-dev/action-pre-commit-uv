@@ -1,5 +1,7 @@
 [![pre-commit.ci status](https://results.pre-commit.ci/badge/github/tox-dev/action-pre-commit-uv/main.svg)](https://results.pre-commit.ci/latest/github/tox-dev/action-pre-commit-uv/main)
 [![Build Status](https://github.com/tox-dev/action-pre-commit-uv/actions/workflows/main.yml/badge.svg)](https://github.com/tox-dev/action-pre-commit-uv/actions)
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/tox-dev/action-pre-commit-uv/badge)](https://scorecard.dev/viewer/?uri=github.com/tox-dev/action-pre-commit-uv)
+[![OpenSSF Best Practices](https://www.bestpractices.dev/projects/16255/badge)](https://www.bestpractices.dev/projects/16255)
 
 # tox-dev/action-pre-commit-uv
 
