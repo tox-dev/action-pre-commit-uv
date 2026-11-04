@@ -4,6 +4,9 @@ on:
     types: [opened, synchronize, reopened]
   push:
     branches: [main, test-me-*]
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 permissions:
   contents: read
 jobs:

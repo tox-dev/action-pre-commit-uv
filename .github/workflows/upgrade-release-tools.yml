@@ -3,6 +3,9 @@ on:
   workflow_dispatch:
   schedule:
     - cron: 0 8 * * 2
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 permissions: {}
 jobs:
   upgrade:
