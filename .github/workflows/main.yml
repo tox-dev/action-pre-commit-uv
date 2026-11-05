@@ -14,12 +14,24 @@ jobs:
     name: 🧪 Self-test with uvx
     runs-on: ubuntu-26.04
     steps:
-      - name: 📥 Check out code
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          persist-credentials: false
+      # The repository root has a pyproject.toml, which would send the Action down its uv run path.
+      - name: ⚙️ Create a git repository without a Python project
+        run: |
+          git init --quiet
+          cat >.pre-commit-config.yaml <<'EOF'
+          repos:
+            - repo: https://github.com/pre-commit/pre-commit-hooks
+              rev: 3e8a8703264a2f4a69428a0aa4dcb512790b2c8c # frozen: v6.0.0
+              hooks:
+                - id: check-yaml
+                - id: end-of-file-fixer
+          EOF
+          git add .pre-commit-config.yaml
+        shell: bash
       - name: 🧪 Self test action (uvx path)
         uses: $/
+        with:
+          uv-install: 'true'
   self-test-uv-run:
     name: 🧪 Self-test with uv run
     runs-on: ubuntu-26.04
