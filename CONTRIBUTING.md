@@ -1,7 +1,6 @@
 # Contributing
 
-Open a pull request for changes to the Action. The CI workflow runs the Action in a checkout with a Python project, a
-checkout without one, and a checkout where uv is already installed.
+Open a pull request for changes to the Action. Run `prek run --all-files` before pushing changes.
 
 ## Release notes
 
@@ -23,3 +22,12 @@ pending fragment categories. The workflow calculates a `v`-prefixed tag, builds 
 `release-creator contributors` to list first-time contributors from the commit authors and co-authors, runs `prek`, and
 validates the patch before a repository-scoped GitHub App pushes the release commit and tag. The tag workflow creates a
 GitHub Release from the tagged changelog and advances the floating `v1` and `v1.0` tags when appropriate.
+
+## Tests
+
+Add a test for every new feature and bug fix. A change without a test needs a reason in the pull request description.
+
+The tests are the self-test jobs of the CI workflow in `.github/workflows/main.yml`. Each job runs the Action from the
+pull request in a different setup: a directory with a Python project, a directory without one, and a runner where uv is
+already installed. Cover a new input or code path with a new job or a new step in an existing one. The jobs run on every
+pull request and on pushes to `main` and to branches named `test-me-*`.
