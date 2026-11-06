@@ -69,10 +69,18 @@ jobs:
         uses: $/
         with:
           uv-install: 'false'
+  release:
+    name: 🏷️ Release dry run
+    uses: $/.github/workflows/prepare-release.yml
+    permissions:
+      contents: read
+      pull-requests: read
+    with:
+      dry-run: true
   gate:
     name: 🚦 ${{ github.event_name == 'pull_request' && 'Required checks pass' || 'Non-PR checks pass' }}
     if: always()
-    needs: [self-test-uvx, self-test-uv-run, self-test-external-uv]
+    needs: [self-test-uvx, self-test-uv-run, self-test-external-uv, release]
     runs-on: ubuntu-26.04
     permissions: {}
     steps:
