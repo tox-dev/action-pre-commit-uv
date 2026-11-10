@@ -42,37 +42,37 @@ sha256 = "255bc9599cf7748b4b1a446ccc735421bd08a2ae529a8b88597d3de5664ee360"
 
 [[packages]]
 name = "cython"
-version = "3.3.0"
+version = "3.3.1"
 marker = "\"build\" in dependency_groups"
 requires-python = ">=3.9"
 index = "https://pypi.org/simple/"
 
 [packages.sdist]
-name = "cython-3.3.0.tar.gz"
-upload-time = 2026-08-22 05:16:39.493040+00:00
-url = "https://files.pythonhosted.org/packages/a9/d8/4981ef716ad0e3ff0d3ef383aefc6b03c4a88dee33b272bf8e0d833001ca/cython-3.3.0.tar.gz"
-size = 3727515
+name = "cython-3.3.1.tar.gz"
+upload-time = 2026-11-01 20:12:04.773452+00:00
+url = "https://files.pythonhosted.org/packages/99/ca/18e324972e5cac914816fdd7bb03e19a455b90039c277a538f7781b50c85/cython-3.3.1.tar.gz"
+size = 3743354
 
 [packages.sdist.hashes]
-sha256 = "eed0d93fbca7087f143b42c34b05a825849bdf17f101572c2105acfa49aa88b8"
+sha256 = "e0e45989e821bef6aa9ae15c7d583ab5e055f7406c4b3624e49e06d24e90375a"
 
 [[packages.wheels]]
-name = "cython-3.3.0-cp315-cp315-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
-upload-time = 2026-08-22 05:17:36.538454+00:00
-url = "https://files.pythonhosted.org/packages/c9/aa/4c0b6773ecf6bc1ec6cda7db8312a566611b330fb6dae87d740e44a47822/cython-3.3.0-cp315-cp315-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
-size = 3454285
+name = "cython-3.3.1-cp315-cp315-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
+upload-time = 2026-11-01 20:13:03.833166+00:00
+url = "https://files.pythonhosted.org/packages/63/e4/4ef74af67d86067258187a24764df2d9d9bf9adb0b78712862dea051eaff/cython-3.3.1-cp315-cp315-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
+size = 3456176
 
 [packages.wheels.hashes]
-sha256 = "b447f6906e0555f05dc4742ef1f99091b1e5d9aa9f16616e772fbf9ff6271616"
+sha256 = "fcb6c86dddaedd1da5d77ba2469c1a4bea52442e02d8f0653ff78667fbaaa8d9"
 
 [[packages.wheels]]
-name = "cython-3.3.0-py3-none-any.whl"
-upload-time = 2026-08-22 05:16:36.741632+00:00
-url = "https://files.pythonhosted.org/packages/bf/77/67b0b24e45073a699610e50f00c18474ff9b09ea29ecc95083bdf5e60acd/cython-3.3.0-py3-none-any.whl"
-size = 1349151
+name = "cython-3.3.1-py3-none-any.whl"
+upload-time = 2026-11-01 20:12:01.888912+00:00
+url = "https://files.pythonhosted.org/packages/9d/55/088578d75bc8dbcbc535af04b1d596ff227ca756dd74f9d3c1c526f955d0/cython-3.3.1-py3-none-any.whl"
+size = 1352000
 
 [packages.wheels.hashes]
-sha256 = "9b24b5c8cd536946b62086fcafee6d5509d3f549f72d553d2336af87ffbe0da1"
+sha256 = "61abc7feedd20dac6c4ff7ab3a30e17136a067b242ab9253e2b4a6d9a72c2b61"
 
 [[packages]]
 name = "docutils"
@@ -319,32 +319,32 @@ sha256 = "d7193f7c8e4e93f444fde0262bf90af30e16fa0ad0ad44cb553c87339b23cd1c"
 
 [[packages]]
 name = "prek"
-version = "0.5.7"
+version = "0.5.9"
 marker = "\"release-prepare\" in dependency_groups"
 requires-python = ">=3.8"
 index = "https://pypi.org/simple/"
 
 [packages.sdist]
-name = "prek-0.5.7.tar.gz"
-upload-time = 2026-10-21 00:46:48.231166+00:00
-url = "https://files.pythonhosted.org/packages/e0/0c/985c6f0fe1671e639fb97bf5a60f3945369f26d4ccf5a8a1b063d357e6da/prek-0.5.7.tar.gz"
-size = 580753
+name = "prek-0.5.9.tar.gz"
+upload-time = 2026-10-30 10:32:01.272337+00:00
+url = "https://files.pythonhosted.org/packages/f2/c6/89312171d4b87b7d2419a077f84e638bee69d1b7943598c72685655f86a7/prek-0.5.9.tar.gz"
+size = 603716
 
 [packages.sdist.hashes]
-sha256 = "91049700f0f13b4575deb44045dd6dd51f7c4a70c53ec5d452b09925962e3b35"
+sha256 = "47bc660a7e959860a44afb5ff3dc167d96f04d929b405020a0f2c7683d3d00d8"
 
 [[packages.wheels]]
-name = "prek-0.5.7-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
-upload-time = 2026-10-21 00:46:39.290591+00:00
-url = "https://files.pythonhosted.org/packages/4b/15/c83456872211706839ff326474aa9f2d870eef7ee5ec2c436446519779d2/prek-0.5.7-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
-size = 6140221
+name = "prek-0.5.9-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
+upload-time = 2026-10-30 10:31:52.132595+00:00
+url = "https://files.pythonhosted.org/packages/7c/de/9f538470c56f0524215d5ede21fdb092b5a5a55ee8b4ccc88a35487d57e0/prek-0.5.9-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
+size = 5942047
 
 [packages.wheels.hashes]
-sha256 = "c139c494fb1d9826688f8107d1514fa2a58f8f4a0f0527b68e7970fa50a8b723"
+sha256 = "1ef04fd7b4bae3a31e1180bc87e877a3a5584063fe79320a125267afee47090d"
 
 [[packages]]
 name = "release-creator"
-version = "4.2.0"
+version = "4.4.0"
 marker = "\"release-news\" in dependency_groups or \"release-notes\" in dependency_groups or \"release-prepare\" in dependency_groups"
 requires-python = ">=3.15"
 dependencies = [
@@ -358,22 +358,22 @@ dependencies = [
 index = "https://pypi.org/simple/"
 
 [packages.sdist]
-name = "release_creator-4.2.0.tar.gz"
-upload-time = 2026-10-26 22:39:33.566239+00:00
-url = "https://files.pythonhosted.org/packages/0c/c2/6ff369a01a8fff3e4845e2a6989164b71b1662cba8e104ae9f0a2925ca43/release_creator-4.2.0.tar.gz"
-size = 163102
+name = "release_creator-4.4.0.tar.gz"
+upload-time = 2026-11-02 21:44:48.475063+00:00
+url = "https://files.pythonhosted.org/packages/d8/cf/8f376cc925c26fa5434d327ba03f4ed709b80d2077edda865fc3b2fe1940/release_creator-4.4.0.tar.gz"
+size = 171450
 
 [packages.sdist.hashes]
-sha256 = "5affc1e7a935aa816dfa16c03200b17f93f7d17d201e6a913c50e1e9e32bad2f"
+sha256 = "263d518ddee6371fa13d25bd07f7b5af0fa7a6e421b16f1e8143b0a9443bc84d"
 
 [[packages.wheels]]
-name = "release_creator-4.2.0-py3-none-any.whl"
-upload-time = 2026-10-26 22:39:32.212020+00:00
-url = "https://files.pythonhosted.org/packages/a5/c2/b1be3e0bff91e390890f3bc8e2d9307a1c2841bb3452798d013f2a2b741d/release_creator-4.2.0-py3-none-any.whl"
-size = 53089
+name = "release_creator-4.4.0-py3-none-any.whl"
+upload-time = 2026-11-02 21:44:47.195366+00:00
+url = "https://files.pythonhosted.org/packages/7b/29/6f2a3158b082b3bf8a94eb93662d80b4db4212abea0fc1fae07ac9a043da/release_creator-4.4.0-py3-none-any.whl"
+size = 54784
 
 [packages.wheels.hashes]
-sha256 = "fe3048e7bc31ee0d757985bbc256290fc40b1ca4c76be574b6730752cbb5831f"
+sha256 = "560ed208cca0dc53bc227878e5596e3e26e44fa277658c5d0dc662901d95f8cb"
 
 [[packages]]
 name = "setuptools"
@@ -464,14 +464,15 @@ size = 301806
 sha256 = "901eace6d2dd25ebb917d0ce5db18e5c537e1504c905cf32f0d006c12098b05d"
 
 [tool.nab]
-nab-version = "0.0.23"
-created-at = 2026-11-03 16:10:55.225238+00:00
+nab-version = "0.0.24"
+created-at = 2026-11-10 16:15:17.201558+00:00
 command-line = [
     "nab",
     "lock",
     "--all-groups",
     "--all-extras",
     "--no-cache",
+    "--upgrade",
 ]
 input-path = "pyproject.toml"
 mode = "universal"
@@ -479,3 +480,9 @@ python-specifier = ">=3.15,<3.16"
 platforms = [
     "linux_x86_64",
 ]
+
+[tool.nab.validation]
+version = 3
+all-inputs-sha256 = "bb4f5147e469147038b973f8ba5b1c2af9cc9757376cfb4c05a7e45eaff65b96"
+selection-inputs-sha256 = "ab78a71912c1fdce5a5ae03d40ba87a15d1761d548d2e9356e32d9f6ce9c207a"
+contents-sha256 = "466235d8556adc96c7fe90f7ddf142f53d0ec0e0b91f97d5dcf07f48cbdc6029"
