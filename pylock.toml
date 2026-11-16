@@ -17,28 +17,28 @@ created-by = "nab"
 
 [[packages]]
 name = "click"
-version = "8.5.0"
+version = "8.5.1"
 marker = "\"release-news\" in dependency_groups or \"release-notes\" in dependency_groups or \"release-prepare\" in dependency_groups"
 requires-python = ">=3.10"
 index = "https://pypi.org/simple/"
 
 [packages.sdist]
-name = "click-8.5.0.tar.gz"
-upload-time = 2026-08-26 13:33:14.560531+00:00
-url = "https://files.pythonhosted.org/packages/c7/0e/7fa0ef50764b67090eca4114772a2abf8b6148198475e54c660b97caeee6/click-8.5.0.tar.gz"
-size = 382235
+name = "click-8.5.1.tar.gz"
+upload-time = 2026-11-06T17:37:01.021167+00:00
+url = "https://files.pythonhosted.org/packages/45/37/edbf1b0707709013c0cf2e8317e03d97ed29bf4cac709fe328904ae92a38/click-8.5.1.tar.gz"
+size = 399151
 
 [packages.sdist.hashes]
-sha256 = "ba0d2089de75ea0310e2dde03160e6ca10009947fb95a182f9b54021bb272e34"
+sha256 = "9bbfada76703fd1d784b83eea012e3e8c6a001a876543ef104fa56aaaeb072b4"
 
 [[packages.wheels]]
-name = "click-8.5.0-py3-none-any.whl"
-upload-time = 2026-08-26 13:33:12.928043+00:00
-url = "https://files.pythonhosted.org/packages/58/50/6c0d534c5f134586a8e1ba4e330569e32f057e33372ae556463212fb4cd3/click-8.5.0-py3-none-any.whl"
-size = 125251
+name = "click-8.5.1-py3-none-any.whl"
+upload-time = 2026-11-06T17:36:59.287013+00:00
+url = "https://files.pythonhosted.org/packages/31/7d/164b7ffc8624fe9efb4221bf9af485d5c1e41b9ae118045d2b6dc5457d8b/click-8.5.1-py3-none-any.whl"
+size = 126163
 
 [packages.wheels.hashes]
-sha256 = "255bc9599cf7748b4b1a446ccc735421bd08a2ae529a8b88597d3de5664ee360"
+sha256 = "8bb5376d2006950386f8c6427613334a2acadc5f559cb80e638d00b4df957e37"
 
 [[packages]]
 name = "cython"
@@ -49,7 +49,7 @@ index = "https://pypi.org/simple/"
 
 [packages.sdist]
 name = "cython-3.3.1.tar.gz"
-upload-time = 2026-11-01 20:12:04.773452+00:00
+upload-time = 2026-11-01T20:12:04.773452+00:00
 url = "https://files.pythonhosted.org/packages/99/ca/18e324972e5cac914816fdd7bb03e19a455b90039c277a538f7781b50c85/cython-3.3.1.tar.gz"
 size = 3743354
 
@@ -58,7 +58,7 @@ sha256 = "e0e45989e821bef6aa9ae15c7d583ab5e055f7406c4b3624e49e06d24e90375a"
 
 [[packages.wheels]]
 name = "cython-3.3.1-cp315-cp315-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
-upload-time = 2026-11-01 20:13:03.833166+00:00
+upload-time = 2026-11-01T20:13:03.833166+00:00
 url = "https://files.pythonhosted.org/packages/63/e4/4ef74af67d86067258187a24764df2d9d9bf9adb0b78712862dea051eaff/cython-3.3.1-cp315-cp315-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
 size = 3456176
 
@@ -67,7 +67,7 @@ sha256 = "fcb6c86dddaedd1da5d77ba2469c1a4bea52442e02d8f0653ff78667fbaaa8d9"
 
 [[packages.wheels]]
 name = "cython-3.3.1-py3-none-any.whl"
-upload-time = 2026-11-01 20:12:01.888912+00:00
+upload-time = 2026-11-01T20:12:01.888912+00:00
 url = "https://files.pythonhosted.org/packages/9d/55/088578d75bc8dbcbc535af04b1d596ff227ca756dd74f9d3c1c526f955d0/cython-3.3.1-py3-none-any.whl"
 size = 1352000
 
@@ -83,7 +83,7 @@ index = "https://pypi.org/simple/"
 
 [packages.sdist]
 name = "docutils-0.23.tar.gz"
-upload-time = 2026-05-27 17:41:06.934109+00:00
+upload-time = 2026-05-27T17:41:06.934109+00:00
 url = "https://files.pythonhosted.org/packages/39/a4/5180d9afc57e8fca05601dd652bdff19604c218814037fe90ffc7625a50a/docutils-0.23.tar.gz"
 size = 2303823
 
@@ -92,7 +92,7 @@ sha256 = "746f5060322511280a1e50eb76846ed6bf2342984b2ac04dc42caa1a8d78799e"
 
 [[packages.wheels]]
 name = "docutils-0.23-py3-none-any.whl"
-upload-time = 2026-05-27 17:40:58.442528+00:00
+upload-time = 2026-05-27T17:40:58.442528+00:00
 url = "https://files.pythonhosted.org/packages/32/91/30151a39f7570f448ed84529390628a651d7f27c87d73c9b887f8189695e/docutils-0.23-py3-none-any.whl"
 size = 634701
 
@@ -111,7 +111,7 @@ index = "https://pypi.org/simple/"
 
 [packages.sdist]
 name = "jinja2-3.1.6.tar.gz"
-upload-time = 2025-03-05 20:05:02.478302+00:00
+upload-time = 2025-03-05T20:05:02.478302+00:00
 url = "https://files.pythonhosted.org/packages/df/bf/f7da0350254c0ed7c72f3e33cef02e048281fec7ecec5f032d4aac52226b/jinja2-3.1.6.tar.gz"
 size = 245115
 
@@ -120,7 +120,7 @@ sha256 = "0137fb05990d35f1275a587e9aee6d56da821fc83491a0fb838183be43f66d6d"
 
 [[packages.wheels]]
 name = "jinja2-3.1.6-py3-none-any.whl"
-upload-time = 2025-03-05 20:05:00.369721+00:00
+upload-time = 2025-03-05T20:05:00.369721+00:00
 url = "https://files.pythonhosted.org/packages/62/a1/3d680cbfd5f4b8f15abc1d571870c5fc3e594bb582bc3b64ea099db13e56/jinja2-3.1.6-py3-none-any.whl"
 size = 134899
 
@@ -139,7 +139,7 @@ index = "https://pypi.org/simple/"
 
 [packages.sdist]
 name = "markdown_it_py-4.2.0.tar.gz"
-upload-time = 2026-05-07 12:08:28.360612+00:00
+upload-time = 2026-05-07T12:08:28.360612+00:00
 url = "https://files.pythonhosted.org/packages/06/ff/7841249c247aa650a76b9ee4bbaeae59370dc8bfd2f6c01f3630c35eb134/markdown_it_py-4.2.0.tar.gz"
 size = 82454
 
@@ -148,7 +148,7 @@ sha256 = "04a21681d6fbb623de53f6f364d352309d4094dd4194040a10fd51833e418d49"
 
 [[packages.wheels]]
 name = "markdown_it_py-4.2.0-py3-none-any.whl"
-upload-time = 2026-05-07 12:08:27.182789+00:00
+upload-time = 2026-05-07T12:08:27.182789+00:00
 url = "https://files.pythonhosted.org/packages/b3/81/4da04ced5a082363ecfa159c010d200ecbd959ae410c10c0264a38cac0f5/markdown_it_py-4.2.0-py3-none-any.whl"
 size = 91687
 
@@ -164,7 +164,7 @@ index = "https://pypi.org/simple/"
 
 [packages.sdist]
 name = "markupsafe-3.0.4.tar.gz"
-upload-time = 2026-10-02 23:07:22.290270+00:00
+upload-time = 2026-10-02T23:07:22.290270+00:00
 url = "https://files.pythonhosted.org/packages/38/9b/e422a865e1d5d57d0e509b4e0bf1c1a70a7f6382c29a5aa428df994c8bc8/markupsafe-3.0.4.tar.gz"
 size = 153777
 
@@ -173,7 +173,7 @@ sha256 = "2e9ad7dd851bf45fab9f75cbff4cb493fee9979e8d8c7c9c3ee119022518edd6"
 
 [[packages.wheels]]
 name = "markupsafe-3.0.4-cp315-cp315-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
-upload-time = 2026-10-02 23:06:22.524416+00:00
+upload-time = 2026-10-02T23:06:22.524416+00:00
 url = "https://files.pythonhosted.org/packages/82/96/ef49135ce260db4ca4a12b119ed468449cd248db6b1468e2112b546d7a2e/markupsafe-3.0.4-cp315-cp315-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
 size = 23111
 
@@ -192,7 +192,7 @@ index = "https://pypi.org/simple/"
 
 [packages.sdist]
 name = "mdformat-1.0.0.tar.gz"
-upload-time = 2025-10-16 12:05:03.695033+00:00
+upload-time = 2025-10-16T12:05:03.695033+00:00
 url = "https://files.pythonhosted.org/packages/3f/05/32b5e14b192b0a8a309f32232c580aefedd9d06017cb8fe8fce34bec654c/mdformat-1.0.0.tar.gz"
 size = 56953
 
@@ -201,7 +201,7 @@ sha256 = "4954045fcae797c29f86d4ad879e43bb151fa55dbaf74ac6eaeacf1d45bb3928"
 
 [[packages.wheels]]
 name = "mdformat-1.0.0-py3-none-any.whl"
-upload-time = 2025-10-16 12:05:02.607432+00:00
+upload-time = 2025-10-16T12:05:02.607432+00:00
 url = "https://files.pythonhosted.org/packages/54/9a/8fe71b95985ca7a4001effbcc58e5a07a1f2a2884203f74dcf48a3b08315/mdformat-1.0.0-py3-none-any.whl"
 size = 53288
 
@@ -223,7 +223,7 @@ index = "https://pypi.org/simple/"
 
 [packages.sdist]
 name = "mdformat_gfm-1.0.0.tar.gz"
-upload-time = 2025-10-16 09:12:22.402429+00:00
+upload-time = 2025-10-16T09:12:22.402429+00:00
 url = "https://files.pythonhosted.org/packages/56/6f/a626ebb142a290474401b67e2d61e73ce096bf7798ee22dfe6270f924b3f/mdformat_gfm-1.0.0.tar.gz"
 size = 10112
 
@@ -232,7 +232,7 @@ sha256 = "d1d49a409a6acb774ce7635c72d69178df7dce1dc8cdd10e19f78e8e57b72623"
 
 [[packages.wheels]]
 name = "mdformat_gfm-1.0.0-py3-none-any.whl"
-upload-time = 2025-10-16 09:12:21.276157+00:00
+upload-time = 2025-10-16T09:12:21.276157+00:00
 url = "https://files.pythonhosted.org/packages/e6/18/6bc2189b744dd383cad03764f41f30352b1278d2205096f77a29c0b327ad/mdformat_gfm-1.0.0-py3-none-any.whl"
 size = 10970
 
@@ -251,7 +251,7 @@ index = "https://pypi.org/simple/"
 
 [packages.sdist]
 name = "mdit_py_plugins-0.6.1.tar.gz"
-upload-time = 2026-05-13 09:03:38.910230+00:00
+upload-time = 2026-05-13T09:03:38.910230+00:00
 url = "https://files.pythonhosted.org/packages/59/fc/f8d0863f8862f25602c0404d75568e89fb6b4109804645e5cdfb1be5cf56/mdit_py_plugins-0.6.1.tar.gz"
 size = 56114
 
@@ -260,7 +260,7 @@ sha256 = "a2bca0f039f39dbd35fb74ae1b5f998608c437463371f0ff7f49a19a17a114d0"
 
 [[packages.wheels]]
 name = "mdit_py_plugins-0.6.1-py3-none-any.whl"
-upload-time = 2026-05-13 09:03:37.760000+00:00
+upload-time = 2026-05-13T09:03:37.760000+00:00
 url = "https://files.pythonhosted.org/packages/a5/69/6da5581c6a7fede7dc261bf4e67d6adca4196f176b43288b55b3db395b6e/mdit_py_plugins-0.6.1-py3-none-any.whl"
 size = 66663
 
@@ -276,7 +276,7 @@ index = "https://pypi.org/simple/"
 
 [packages.sdist]
 name = "mdurl-0.1.2.tar.gz"
-upload-time = 2022-08-14 12:40:10.846281+00:00
+upload-time = 2022-08-14T12:40:10.846281+00:00
 url = "https://files.pythonhosted.org/packages/d6/54/cfe61301667036ec958cb99bd3efefba235e65cdeb9c84d24a8293ba1d90/mdurl-0.1.2.tar.gz"
 size = 8729
 
@@ -285,7 +285,7 @@ sha256 = "bb413d29f5eea38f31dd4754dd7377d4465116fb207585f97bf925588687c1ba"
 
 [[packages.wheels]]
 name = "mdurl-0.1.2-py3-none-any.whl"
-upload-time = 2022-08-14 12:40:09.779676+00:00
+upload-time = 2022-08-14T12:40:09.779676+00:00
 url = "https://files.pythonhosted.org/packages/b3/38/89ba8ad64ae25be8de66a6d463314cf1eb366222074cfda9ee839c56a4b4/mdurl-0.1.2-py3-none-any.whl"
 size = 9979
 
@@ -301,7 +301,7 @@ index = "https://pypi.org/simple/"
 
 [packages.sdist]
 name = "packaging-26.3.tar.gz"
-upload-time = 2026-08-04 18:15:28.737071+00:00
+upload-time = 2026-08-04T18:15:28.737071+00:00
 url = "https://files.pythonhosted.org/packages/7d/fa/3944b40b07da9ce895c0e6303a5ab7d53da063554f534556b134a54d6093/packaging-26.3.tar.gz"
 size = 313412
 
@@ -310,7 +310,7 @@ sha256 = "94edc256424af38762eb31306eed28beb9f0efc50a8837492c9d6fd6004aed79"
 
 [[packages.wheels]]
 name = "packaging-26.3-py3-none-any.whl"
-upload-time = 2026-08-04 18:15:27.159957+00:00
+upload-time = 2026-08-04T18:15:27.159957+00:00
 url = "https://files.pythonhosted.org/packages/63/34/ba1c580383c9eada3711951fef0795c80b829a078d72188184bcab9dd527/packaging-26.3-py3-none-any.whl"
 size = 129956
 
@@ -319,28 +319,28 @@ sha256 = "d7193f7c8e4e93f444fde0262bf90af30e16fa0ad0ad44cb553c87339b23cd1c"
 
 [[packages]]
 name = "prek"
-version = "0.5.9"
+version = "0.5.10"
 marker = "\"release-prepare\" in dependency_groups"
 requires-python = ">=3.8"
 index = "https://pypi.org/simple/"
 
 [packages.sdist]
-name = "prek-0.5.9.tar.gz"
-upload-time = 2026-10-30 10:32:01.272337+00:00
-url = "https://files.pythonhosted.org/packages/f2/c6/89312171d4b87b7d2419a077f84e638bee69d1b7943598c72685655f86a7/prek-0.5.9.tar.gz"
-size = 603716
+name = "prek-0.5.10.tar.gz"
+upload-time = 2026-11-04T01:47:55.646834+00:00
+url = "https://files.pythonhosted.org/packages/e2/69/2e2f3804a4c4d53c89875a92665fa1cdc96eb49a2f483752e9aa8a2350e7/prek-0.5.10.tar.gz"
+size = 605608
 
 [packages.sdist.hashes]
-sha256 = "47bc660a7e959860a44afb5ff3dc167d96f04d929b405020a0f2c7683d3d00d8"
+sha256 = "bfb3c7072fc9c5c49d715c015693f4ea6ef7b051f134eac158ed7753e6f00101"
 
 [[packages.wheels]]
-name = "prek-0.5.9-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
-upload-time = 2026-10-30 10:31:52.132595+00:00
-url = "https://files.pythonhosted.org/packages/7c/de/9f538470c56f0524215d5ede21fdb092b5a5a55ee8b4ccc88a35487d57e0/prek-0.5.9-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
-size = 5942047
+name = "prek-0.5.10-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
+upload-time = 2026-11-04T01:47:47.351458+00:00
+url = "https://files.pythonhosted.org/packages/70/48/5b74be17f90f9ecc9c988d250fad5ae0d855dbf567ec20e25cbfcef258ca/prek-0.5.10-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
+size = 5916406
 
 [packages.wheels.hashes]
-sha256 = "1ef04fd7b4bae3a31e1180bc87e877a3a5584063fe79320a125267afee47090d"
+sha256 = "b4a5667c09ae692be1ed930b9cef23258c3a648ea89aa1a737a16317ea78f718"
 
 [[packages]]
 name = "release-creator"
@@ -359,7 +359,7 @@ index = "https://pypi.org/simple/"
 
 [packages.sdist]
 name = "release_creator-4.4.0.tar.gz"
-upload-time = 2026-11-02 21:44:48.475063+00:00
+upload-time = 2026-11-02T21:44:48.475063+00:00
 url = "https://files.pythonhosted.org/packages/d8/cf/8f376cc925c26fa5434d327ba03f4ed709b80d2077edda865fc3b2fe1940/release_creator-4.4.0.tar.gz"
 size = 171450
 
@@ -368,7 +368,7 @@ sha256 = "263d518ddee6371fa13d25bd07f7b5af0fa7a6e421b16f1e8143b0a9443bc84d"
 
 [[packages.wheels]]
 name = "release_creator-4.4.0-py3-none-any.whl"
-upload-time = 2026-11-02 21:44:47.195366+00:00
+upload-time = 2026-11-02T21:44:47.195366+00:00
 url = "https://files.pythonhosted.org/packages/7b/29/6f2a3158b082b3bf8a94eb93662d80b4db4212abea0fc1fae07ac9a043da/release_creator-4.4.0-py3-none-any.whl"
 size = 54784
 
@@ -384,7 +384,7 @@ index = "https://pypi.org/simple/"
 
 [packages.sdist]
 name = "setuptools-84.2.1.tar.gz"
-upload-time = 2026-10-20 19:01:37.742699+00:00
+upload-time = 2026-10-20T19:01:37.742699+00:00
 url = "https://files.pythonhosted.org/packages/70/b3/c19426f783614d625699a4b247faf628ea9ab1db228674491767b417f9e1/setuptools-84.2.1.tar.gz"
 size = 1230289
 
@@ -393,7 +393,7 @@ sha256 = "3ff8b3b5492a0aa66960f4419365a86b84e013070d4313e4d4a6894f5d64d6bc"
 
 [[packages.wheels]]
 name = "setuptools-84.2.1-py3-none-any.whl"
-upload-time = 2026-10-20 19:01:35.678013+00:00
+upload-time = 2026-10-20T19:01:35.678013+00:00
 url = "https://files.pythonhosted.org/packages/ef/55/6dc6d6bb953bdfc52519a0059592c52b6e3b8ad51cf8256dffceb55b0610/setuptools-84.2.1-py3-none-any.whl"
 size = 876263
 
@@ -413,7 +413,7 @@ index = "https://pypi.org/simple/"
 
 [packages.sdist]
 name = "towncrier-26.9.0.tar.gz"
-upload-time = 2026-09-04 12:57:25.341701+00:00
+upload-time = 2026-09-04T12:57:25.341701+00:00
 url = "https://files.pythonhosted.org/packages/92/d4/e85ce614bf45b1a7fe13b82cc687819c2eaac5a1dd94b84834322095fd98/towncrier-26.9.0.tar.gz"
 size = 79338
 
@@ -422,7 +422,7 @@ sha256 = "ace9031631c718cc0709107b8755e6e31350eb8acdc877af43df3177addb9a55"
 
 [[packages.wheels]]
 name = "towncrier-26.9.0-py3-none-any.whl"
-upload-time = 2026-09-04 12:57:23.986160+00:00
+upload-time = 2026-09-04T12:57:23.986160+00:00
 url = "https://files.pythonhosted.org/packages/82/88/f9340b545dafa64de053798e760515a2736fbb60092cf9aa6b146ccf3ede/towncrier-26.9.0-py3-none-any.whl"
 size = 67030
 
@@ -438,7 +438,7 @@ index = "https://pypi.org/simple/"
 
 [packages.sdist]
 name = "wcwidth-0.9.4.tar.gz"
-upload-time = 2026-10-24 18:11:44.954051+00:00
+upload-time = 2026-10-24T18:11:44.954051+00:00
 url = "https://files.pythonhosted.org/packages/ea/01/e5ac23733628a6bbb91913a765fcf55ee8070d8d991bc88fdaaf805052c7/wcwidth-0.9.4.tar.gz"
 size = 970051
 
@@ -447,7 +447,7 @@ sha256 = "fd8d57d3cdfe570e3265c8fab1885c24e34ef40889c0759c0c304a19e9835954"
 
 [[packages.wheels]]
 name = "wcwidth-0.9.4-cp310-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl"
-upload-time = 2026-10-24 18:11:18.748328+00:00
+upload-time = 2026-10-24T18:11:18.748328+00:00
 url = "https://files.pythonhosted.org/packages/fa/e8/0485850748dfdba9443f4151c7b2442cfa4987ba6cd871038eb5d6b8eca9/wcwidth-0.9.4-cp310-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl"
 size = 785946
 
@@ -456,7 +456,7 @@ sha256 = "b185c8b927b23af2721be1783499d1cfa5c028b098b0858951b4ae224477f1c2"
 
 [[packages.wheels]]
 name = "wcwidth-0.9.4-py3-none-any.whl"
-upload-time = 2026-10-24 18:10:52.651030+00:00
+upload-time = 2026-10-24T18:10:52.651030+00:00
 url = "https://files.pythonhosted.org/packages/6f/0c/309b1813b230d1dbbd6f2c2ab2bb21ef68992358977605d9ef289bbfedcc/wcwidth-0.9.4-py3-none-any.whl"
 size = 301806
 
@@ -464,8 +464,8 @@ size = 301806
 sha256 = "901eace6d2dd25ebb917d0ce5db18e5c537e1504c905cf32f0d006c12098b05d"
 
 [tool.nab]
-nab-version = "0.0.24"
-created-at = 2026-11-10 16:15:17.201558+00:00
+nab-version = "0.0.27"
+created-at = 2026-11-16T19:02:39.415447+00:00
 command-line = [
     "nab",
     "lock",
@@ -482,7 +482,7 @@ platforms = [
 ]
 
 [tool.nab.validation]
-version = 3
-all-inputs-sha256 = "bb4f5147e469147038b973f8ba5b1c2af9cc9757376cfb4c05a7e45eaff65b96"
-selection-inputs-sha256 = "ab78a71912c1fdce5a5ae03d40ba87a15d1761d548d2e9356e32d9f6ce9c207a"
-contents-sha256 = "466235d8556adc96c7fe90f7ddf142f53d0ec0e0b91f97d5dcf07f48cbdc6029"
+version = 1
+all-inputs-sha256 = "421f8f4182a8b38829d7f328f1c88b80f4c8e9dd1df2e2934b5127ae53aab086"
+selection-inputs-sha256 = "114fdca5763c31e6c3e0e4b177977c9f7f836f9e1511771032beae3bab489d5d"
+contents-sha256 = "2baf084eee14f021715ed9bb2763e8affbeb0bd42070b4a2cab76403a8c05a75"
