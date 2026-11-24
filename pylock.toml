@@ -319,28 +319,28 @@ sha256 = "d7193f7c8e4e93f444fde0262bf90af30e16fa0ad0ad44cb553c87339b23cd1c"
 
 [[packages]]
 name = "prek"
-version = "0.5.10"
+version = "0.5.11"
 marker = "\"release-prepare\" in dependency_groups"
 requires-python = ">=3.8"
 index = "https://pypi.org/simple/"
 
 [packages.sdist]
-name = "prek-0.5.10.tar.gz"
-upload-time = 2026-11-04T01:47:55.646834+00:00
-url = "https://files.pythonhosted.org/packages/e2/69/2e2f3804a4c4d53c89875a92665fa1cdc96eb49a2f483752e9aa8a2350e7/prek-0.5.10.tar.gz"
-size = 605608
+name = "prek-0.5.11.tar.gz"
+upload-time = 2026-11-16T06:42:02.693886+00:00
+url = "https://files.pythonhosted.org/packages/19/0d/8f661ef91334d8afe883a51f586628bb0a18c5077b39dc7c2754bc5335da/prek-0.5.11.tar.gz"
+size = 619436
 
 [packages.sdist.hashes]
-sha256 = "bfb3c7072fc9c5c49d715c015693f4ea6ef7b051f134eac158ed7753e6f00101"
+sha256 = "99c8363ca07b881dc49cf71eb3c362670c95d0d554fc375ceee0245548081829"
 
 [[packages.wheels]]
-name = "prek-0.5.10-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
-upload-time = 2026-11-04T01:47:47.351458+00:00
-url = "https://files.pythonhosted.org/packages/70/48/5b74be17f90f9ecc9c988d250fad5ae0d855dbf567ec20e25cbfcef258ca/prek-0.5.10-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
-size = 5916406
+name = "prek-0.5.11-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl"
+upload-time = 2026-11-16T06:41:53.625451+00:00
+url = "https://files.pythonhosted.org/packages/02/f0/35e94ecd6eab935705e68cfb33af06d27db4693a49214171a9adfcecb756/prek-0.5.11-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl"
+size = 5991609
 
 [packages.wheels.hashes]
-sha256 = "b4a5667c09ae692be1ed930b9cef23258c3a648ea89aa1a737a16317ea78f718"
+sha256 = "ca78936abfb2793ba9d6b9b4ac0e4eb13189bcfabd16d94c29aa573963bac87f"
 
 [[packages]]
 name = "release-creator"
@@ -464,8 +464,8 @@ size = 301806
 sha256 = "901eace6d2dd25ebb917d0ce5db18e5c537e1504c905cf32f0d006c12098b05d"
 
 [tool.nab]
-nab-version = "0.0.28"
-created-at = 2026-11-17T17:33:49.259246+00:00
+nab-version = "0.0.30"
+created-at = 2026-11-24T19:28:42.170022+00:00
 command-line = [
     "nab",
     "lock",
@@ -483,6 +483,6 @@ platforms = [
 
 [tool.nab.validation]
 version = 1
-all-inputs-sha256 = "05c7e31efe581ac3db0e06163e221a329ea84511bca8274d072d610e4afd9419"
-selection-inputs-sha256 = "54db7a71fa7cd545df0b969202a94d8738195f22a51acefbc51fb0f9555f2521"
-contents-sha256 = "e7b0c257582d480b65ab87605a049267e487e8ee5c418a72fc2d84692b736467"
+all-inputs-sha256 = "3545abbcf735d1e75d33732cf096c3ea83e2ea21b4de9ce34f2876ef87869f15"
+selection-inputs-sha256 = "23aa2f9fa022edfa58646e507abf1968e1b9d6ea25f2ffcc5bcdf34a78d37369"
+contents-sha256 = "3d7703243171973d0b69e10eeed5360836966fc5ed0652ce30bc801291e129eb"
